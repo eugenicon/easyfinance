@@ -1,0 +1,19 @@
+.login-container {
+  height: 100vh;
+}
+
+mat-card-content {
+  width: 350px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+button {
+  width: 40%;
+}
+
+mat-card-header {
+
+}

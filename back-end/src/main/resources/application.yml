@@ -1,0 +1,6 @@
+view:
+  forward-to-frontend-url: forward:/index.html
+  frontend-managed-urls:
+    /,
+    /user,
+    /user/**
