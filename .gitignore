@@ -4,7 +4,8 @@
 /dist
 /tmp
 /out-tsc
-*/target
+**/target
+**/build
 
 # dependencies
 **/node
@@ -12,6 +13,8 @@
 
 # IDEs and editors
 /.idea
+**/.gradle
+**/gradle
 .project
 .classpath
 .c9/

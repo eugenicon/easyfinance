@@ -1,0 +1,8 @@
+description = ''
+
+dependencies {
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.springframework.boot:spring-boot-starter-security'
+    compile 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
+    testCompile 'org.jetbrains.kotlin:kotlin-test'
+}

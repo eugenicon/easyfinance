@@ -1,32 +1,30 @@
-package net.easyfinance.core.config;
+package net.easyfinance.core.config
 
-import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.beans.factory.annotation.Configurable
+import org.springframework.security.config.annotation.web.builders.HttpSecurity
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 
 @Configurable
 @EnableWebSecurity
-public class WebConfig extends WebSecurityConfigurerAdapter {
+open class WebConfig : WebSecurityConfigurerAdapter() {
 
     // This method is used for override HttpSecurity of the web Application.
     // We can specify our authorization criteria inside this method.
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    @Throws(Exception::class)
+    override fun configure(http: HttpSecurity) {
         if (false) {
             http.authorizeRequests().anyRequest()
-                    .permitAll().and().csrf().disable();
-            return;
+                    .permitAll().and().csrf().disable()
+            return
         }
 
         http.cors()
-            .and().authorizeRequests()
+                .and().authorizeRequests()
                 .antMatchers("/", "/user/register", "/user/login", "/user/logout").permitAll()
                 .antMatchers("/**/*.js", "/**/*.css", "/**/*.ico").permitAll()
                 .anyRequest().fullyAuthenticated()
-            .and().csrf().disable();
+                .and().csrf().disable()
 
         //http.cors().and()
         //        // starts authorizing configurations
