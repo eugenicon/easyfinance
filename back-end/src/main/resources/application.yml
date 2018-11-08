@@ -4,3 +4,8 @@ view:
     /,
     /user,
     /user/**
+
+logging.level:
+  ROOT: info
+
+spring.jackson.serialization.indent_output: true

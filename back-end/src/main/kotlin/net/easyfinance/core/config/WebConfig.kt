@@ -1,19 +1,18 @@
 package net.easyfinance.core.config
 
-import org.springframework.beans.factory.annotation.Configurable
+import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 
-@Configurable
+@Configuration
 @EnableWebSecurity
 open class WebConfig : WebSecurityConfigurerAdapter() {
 
     // This method is used for override HttpSecurity of the web Application.
     // We can specify our authorization criteria inside this method.
-    @Throws(Exception::class)
     override fun configure(http: HttpSecurity) {
-        if (false) {
+        if (true) {
             http.authorizeRequests().anyRequest()
                     .permitAll().and().csrf().disable()
             return
