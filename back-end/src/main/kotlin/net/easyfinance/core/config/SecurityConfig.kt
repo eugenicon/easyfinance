@@ -1,27 +1,31 @@
 package net.easyfinance.core.config
 
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
+import org.springframework.security.config.annotation.web.builders.WebSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 
 @Configuration
 @EnableWebSecurity
-open class WebConfig : WebSecurityConfigurerAdapter() {
+open class SecurityConfig : WebSecurityConfigurerAdapter() {
+    @Value("\${application.security.permit}")
+    private lateinit var permitUrls: Array<String>
+
+    @Value("\${application.security.resources}")
+    private lateinit var resources: Array<String>
+
+    override fun configure(web: WebSecurity) {
+        web.ignoring().antMatchers(*permitUrls, *resources)
+    }
 
     // This method is used for override HttpSecurity of the web Application.
     // We can specify our authorization criteria inside this method.
     override fun configure(http: HttpSecurity) {
-        if (true) {
-            http.authorizeRequests().anyRequest()
-                    .permitAll().and().csrf().disable()
-            return
-        }
-
         http.cors()
                 .and().authorizeRequests()
-                .antMatchers("/", "/user/register", "/user/login", "/user/logout").permitAll()
-                .antMatchers("/**/*.js", "/**/*.css", "/**/*.ico").permitAll()
+                .antMatchers(*permitUrls, *resources).permitAll()
                 .anyRequest().fullyAuthenticated()
                 .and().csrf().disable()
 

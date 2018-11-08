@@ -9,10 +9,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 open class MvcConfig : WebMvcConfigurer {
 
     @Value("\${view.frontend-managed-urls}")
-    lateinit var frontendManagedUrls: Array<String>
+    private lateinit var frontendManagedUrls: Array<String>
 
     @Value("\${view.forward-to-frontend-url}")
-    lateinit var forwardToFrontendUrl: String
+    private lateinit var forwardToFrontendUrl: String
 
     override fun addViewControllers(registry: ViewControllerRegistry) {
         frontendManagedUrls.forEach { registry.addViewController(it).setViewName(forwardToFrontendUrl) }

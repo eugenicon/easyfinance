@@ -9,3 +9,17 @@ logging.level:
   ROOT: info
 
 spring.jackson.serialization.indent_output: true
+
+application:
+  security:
+    permit:
+      /,
+      /user/register, /user/login, /user/logout,
+
+      /actuator/**,
+
+      /v2/api-docs, /configuration/ui, /swagger-resources, /configuration/security, /swagger-ui.html, /webjars/**"
+
+    resources:
+      /**/*.js, /**/*.css,
+      /**/*.ico, /**/*.img, /**/*.png
