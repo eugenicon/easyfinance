@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "start-local": "ng serve --host localhost --proxy-config src/proxy.json"
+    "start-proxy": "ng serve --host localhost --proxy-config src/proxy.json"
   },
   "private": true,
   "dependencies": {

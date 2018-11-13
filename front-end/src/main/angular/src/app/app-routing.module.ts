@@ -8,7 +8,7 @@ const routes: Routes = [
   { path: 'user/login', component: LoginComponent },
 
   // otherwise redirect to login page
-  { path: '**', redirectTo: 'user/login' }
+  { path: '**', redirectTo: '/' }
 ];
 
 @NgModule({

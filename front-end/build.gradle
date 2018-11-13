@@ -11,14 +11,20 @@ node {
     nodeModulesDir = file("${project.projectDir}/src/main/angular")
 }
 
+task npmBuild(type: NpmTask) {
+    args = ['run', 'build']
+    group = "node"
+    dependsOn("npmInstall")
+}
+
 task npmStart(type: NpmTask) {
     args = ['start']
     group = "node"
     dependsOn("npmInstall")
 }
 
-task npmBuild(type: NpmTask) {
-    args = ['run', 'build']
+task npmStartProxy(type: NpmTask) {
+    args = ['run-script', 'start-proxy']
     group = "node"
     dependsOn("npmInstall")
 }
