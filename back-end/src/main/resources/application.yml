@@ -3,7 +3,8 @@ view:
   frontend-managed-urls:
     /,
     /user,
-    /user/**
+    /user/**,
+    /categories
 
 logging.level:
   ROOT: info
@@ -18,7 +19,7 @@ application:
   security:
     permit:
       /,
-      /user/register, /user/login, /test,
+      /api/user/authenticated, /test,
 
       /actuator/**,
 

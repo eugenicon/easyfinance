@@ -12,7 +12,10 @@ import {
   MatCardModule,
   MatFormFieldModule,
   MatInputModule,
+  MatPaginatorModule,
   MatProgressSpinnerModule,
+  MatSortModule,
+  MatTableModule,
   MatToolbarModule
 } from "@angular/material";
 import {LayoutModule} from "@angular/cdk/layout";
@@ -21,6 +24,8 @@ import {ObjToKeysPipe} from "./components/pipes";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {ValidationsComponent} from './components/validations/validations.component';
 import {XhrInterceptor} from "./services/authentication.service";
+import {CategoriesComponent} from './components/categories/categories.component';
+import { TableComponent } from './components/table/table.component';
 
 @NgModule({
   declarations: [
@@ -28,24 +33,29 @@ import {XhrInterceptor} from "./services/authentication.service";
     LoginComponent,
     LandingPageComponent,
     ObjToKeysPipe,
-    ValidationsComponent
+    ValidationsComponent,
+    CategoriesComponent,
+    TableComponent
   ],
   providers: [ObjToKeysPipe, { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    MatToolbarModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    LayoutModule,
+    ReactiveFormsModule,
+    FlexLayoutModule,
+    MatToolbarModule,
     MatCardModule,
     MatButtonModule,
     MatProgressSpinnerModule,
     MatFormFieldModule,
     MatInputModule,
-    LayoutModule,
-    ReactiveFormsModule,
-    FlexLayoutModule
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule
   ],
 
   bootstrap: [AppComponent]

@@ -1,7 +1,8 @@
 <div >
   <mat-toolbar color="primary">
     <mat-toolbar-row>
-      <button mat-button routerLinkActive="active" routerLink="/home">Home</button>
+      <button mat-button routerLinkActive="active" routerLink="home">Home</button>
+      <button *ngIf="authenticated()" mat-button routerLink="categories" >Categories</button>
       <span class="spacer"></span>
       <button *ngIf="!authenticated()" mat-button routerLinkActive="active" routerLink="/user/login">Login</button>
       <button *ngIf="authenticated()" mat-button (click)="logout()" >Logout</button>

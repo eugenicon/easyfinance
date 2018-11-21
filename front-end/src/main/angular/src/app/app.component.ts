@@ -7,12 +7,10 @@ import {AuthenticationService} from './services/authentication.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor(private auth: AuthenticationService) {
-    this.auth.authenticate(undefined, undefined);
-  }
+  constructor(private auth: AuthenticationService) { }
 
   authenticated() {
-    return this.auth.authenticated;
+    return this.auth.isAuthenticated();
   }
 
   logout() {

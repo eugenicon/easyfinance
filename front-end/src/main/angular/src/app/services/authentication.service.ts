@@ -1,34 +1,32 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest} from '@angular/common/http';
-import {Router} from "@angular/router";
+import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthenticationService {
-
-  authenticated = false;
+export class AuthenticationService implements CanActivate {
+  private authenticated = false;
 
   constructor(private http: HttpClient, private router: Router) {
+    this.login();
   }
 
-  authenticate(credentials, callback) {
+  isAuthenticated(): boolean {
+    return this.authenticated;
+  }
+
+  isUserAuthenticated(credentials = undefined) {
     const headers = new HttpHeaders(credentials ? {
       authorization: 'Basic ' + btoa(credentials.username + ':' + credentials.password)
     } : {});
 
-    this.http.get('api/user/authenticated', {headers: headers}).subscribe(response => {
-      if (response['name']) {
-        this.authenticated = true;
-      } else {
-        this.authenticated = false;
-      }
-      return callback && callback();
-    });
+    return this.http.get<boolean>('api/user/authenticated', {headers: headers});
   }
 
-  login(credentials, navigateAfter: string) {
-    this.authenticate(credentials, () => {
+  login(credentials = undefined, navigateAfter: string = '/') {
+    this.isUserAuthenticated(credentials).subscribe(authenticated => {
+      this.authenticated = authenticated;
       this.router.navigateByUrl(navigateAfter);
     });
   }
@@ -38,6 +36,10 @@ export class AuthenticationService {
             this.authenticated = false;
             this.router.navigateByUrl(navigateAfter);
         });
+  }
+
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    return this.authenticated;
   }
 }
 
