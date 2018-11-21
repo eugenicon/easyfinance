@@ -13,4 +13,8 @@ export class DataService {
   getCategories(): Observable<Category[]> {
     return this.http.get<Category[]>('/api/categories/all' );
   }
+
+  getOperations(): Observable<Category[]> {
+    return this.http.get<Category[]>('/api/operations/all' );
+  }
 }

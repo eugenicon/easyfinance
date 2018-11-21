@@ -26,6 +26,7 @@ import {ValidationsComponent} from './components/validations/validations.compone
 import {XhrInterceptor} from "./services/authentication.service";
 import {CategoriesComponent} from './components/categories/categories.component';
 import { TableComponent } from './components/table/table.component';
+import { OperationsComponent } from './components/operations/operations.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { TableComponent } from './components/table/table.component';
     ObjToKeysPipe,
     ValidationsComponent,
     CategoriesComponent,
-    TableComponent
+    TableComponent,
+    OperationsComponent
   ],
   providers: [ObjToKeysPipe, { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }],
   imports: [

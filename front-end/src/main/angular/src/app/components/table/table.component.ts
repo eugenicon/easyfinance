@@ -5,6 +5,7 @@ import {Observable} from "rxjs";
 export class TableColumn {
   name: string;
   title?: string;
+  value?: (item) => {};
 }
 
 @Component({
@@ -13,9 +14,11 @@ export class TableColumn {
   styleUrls: ['./table.component.css']
 })
 export class TableComponent implements OnInit {
-  @Input() dataProvider: Observable<any[]>
+  @Input() dataProvider: Observable<any[]>;
+  @Input() columns: TableColumn[] = [];
+  columnNames: string[] = [];
+  columnsByName: Map<string, TableColumn> = new Map<string, TableColumn>();
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>([]);
-  columns: TableColumn[] = [];
 
   @ViewChild(MatSort) set matSort(ms: MatSort) {
     this.dataSource.sort = ms;
@@ -28,26 +31,41 @@ export class TableComponent implements OnInit {
   ngOnInit() {
     this.dataProvider.subscribe(value => {
       this.dataSource.data = value;
-      if (value.length) {
+      this.dataSource.filterPredicate = this.applyFilter.bind(this);
+      if (value.length && this.columns.length == 0) {
         this.columns = this.initColumns(value[0]);
+      }
+      if (this.columns.length && this.columnsByName.size == 0) {
+        this.columns.forEach(c => {
+          this.columnNames.push(c.name);
+          this.columnsByName.set(c.name, c);
+        });
       }
     })
   }
 
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  updateFilterValue(filter: string) {
+    this.dataSource.filter = filter.trim().toLowerCase();
+  }
+
+  applyFilter(data: any, filter: string) {
+    let accumulator = (string, key) => { return string + '◬' + this.value(data, this.columnsByName.get(key)); };
+
+    let dataAsString = this.columnNames.reduce(accumulator, '').toLowerCase();
+
+    return dataAsString.indexOf(filter) != -1;
   }
 
   capitalizeFirstLetter(string: string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
-  columnNames(columns: TableColumn[]) {
-    return columns.map(c => c.name)
-  }
-
   label(column: TableColumn) {
     return column.title || this.capitalizeFirstLetter(column.name);
+  }
+
+  value(item: any, column: TableColumn) {
+    return column.value == undefined ? item[column.name] : column.value(item)
   }
 
   initColumns(inst: any) {

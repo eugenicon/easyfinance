@@ -1,17 +1,17 @@
 <div *ngIf="dataSource.data.length" class="tableContainer">
   <mat-form-field>
-    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    <input matInput (keyup)="updateFilterValue($event.target.value)" placeholder="Filter">
   </mat-form-field>
 
   <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
     <ng-container *ngFor=" let col of columns; let i = index " matColumnDef="{{col.name}}">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> {{label(col)}}</th>
-      <td mat-cell *matCellDef="let element"> {{element[col.name]}}</td>
+      <td mat-cell *matCellDef="let element"> {{value(element, col)}}</td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="columnNames(columns)"></tr>
-    <tr mat-row *matRowDef="let row; columns: columnNames(columns);"></tr>
+    <tr mat-header-row *matHeaderRowDef="columnNames"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnNames;"></tr>
 
   </table>
 
