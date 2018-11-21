@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {AuthenticationService} from './services/authentication.service';
+import 'hammerjs';
 
 @Component({
   selector: 'app-root',

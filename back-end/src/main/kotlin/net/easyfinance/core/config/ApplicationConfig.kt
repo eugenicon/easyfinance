@@ -40,7 +40,7 @@ open class ApplicationConfig {
         ))
         catRepo.saveAll(catSource)
 
-        val opSource = (1..200L).map {
+        val opSource = (1..2000L).map {
             Operation(it, catRepo.findAll().random(), listOf("Novus","Metro","Jack Daniels","Party").random(), (10..1000L).random()) }
 
         opRepo.saveAll(opSource)

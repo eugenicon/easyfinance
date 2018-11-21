@@ -49,9 +49,13 @@ export class TableComponent implements OnInit {
   }
 
   applyFilter(data: any, filter: string) {
-    let accumulator = (string, key) => { return string + '◬' + this.value(data, this.columnsByName.get(key)); };
+    let dataAsStringProperty = '_dataAsString';
+    let dataAsString = data[dataAsStringProperty];
 
-    let dataAsString = this.columnNames.reduce(accumulator, '').toLowerCase();
+    if (!dataAsString) {
+      let accumulator = (string, key) => string + '◬' + this.value(data, this.columnsByName.get(key));
+      dataAsString = this.columnNames.reduce(accumulator, '').toLowerCase();
+    }
 
     return dataAsString.indexOf(filter) != -1;
   }
