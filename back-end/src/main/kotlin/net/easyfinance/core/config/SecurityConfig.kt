@@ -3,7 +3,6 @@ package net.easyfinance.core.config
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
-import org.springframework.security.config.annotation.web.builders.WebSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 
@@ -16,17 +15,13 @@ open class SecurityConfig : WebSecurityConfigurerAdapter() {
     @Value("\${application.security.resources}")
     private lateinit var resources: Array<String>
 
-    override fun configure(web: WebSecurity) {
-        web.ignoring().antMatchers(*permitUrls, *resources)
-    }
-
     // This method is used for override HttpSecurity of the web Application.
     // We can specify our authorization criteria inside this method.
     override fun configure(http: HttpSecurity) {
-        http.cors()
+        http.httpBasic()
                 .and().authorizeRequests()
                 .antMatchers(*permitUrls, *resources).permitAll()
-                .anyRequest().fullyAuthenticated()
+                .anyRequest().authenticated()
                 .and().csrf().disable()
 
         //http.cors().and()

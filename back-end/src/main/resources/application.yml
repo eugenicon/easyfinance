@@ -10,11 +10,15 @@ logging.level:
 
 spring.jackson.serialization.indent_output: true
 
+spring.security:
+  user.name: user
+  user.password: 123
+
 application:
   security:
     permit:
       /,
-      /user/register, /user/login, /user/logout, /user/authenticated, /test,
+      /user/register, /user/login, /test,
 
       /actuator/**,
 

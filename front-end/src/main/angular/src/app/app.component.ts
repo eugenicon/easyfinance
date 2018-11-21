@@ -1,8 +1,5 @@
-import { Component } from '@angular/core';
-import { AuthenticationService } from './services/authentication.service';
-import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
-import 'rxjs/add/operator/finally';
+import {Component} from '@angular/core';
+import {AuthenticationService} from './services/authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -10,14 +7,15 @@ import 'rxjs/add/operator/finally';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor(private auth: AuthenticationService, private http: HttpClient, private router: Router) {
-      this.auth.authenticate(undefined, undefined);
-    }
+  constructor(private auth: AuthenticationService) {
+    this.auth.authenticate(undefined, undefined);
+  }
 
-    logout() {
-      this.http.post('logout', {}).finally(() => {
-          this.auth.authenticated = false;
-          this.router.navigateByUrl('/login');
-      }).subscribe();
-    }
+  authenticated() {
+    return this.auth.authenticated;
+  }
+
+  logout() {
+    this.auth.logout('/user/login');
+  }
 }

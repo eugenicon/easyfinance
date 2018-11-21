@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {User} from "../../model/user.model";
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
+import {AuthenticationService} from "../../services/authentication.service";
 
 @Component({
   selector: 'app-login',
@@ -10,20 +11,19 @@ import { ActivatedRoute } from '@angular/router';
 export class LoginComponent implements OnInit {
   user: User = new User();
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private auth: AuthenticationService) {
     this.route.queryParams.subscribe(params => {
-        debugger
         let param1 = params['param1'];
         let param2 = params['param2'];
+
     });
 
   }
 
   ngOnInit() {
-    debugger
   }
 
-  login(){
-    console.log(this.user)
+  login() {
+    this.auth.login(this.user, '/');
   }
 }
