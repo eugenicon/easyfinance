@@ -1,19 +1,12 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {LoginComponent} from "./components/login/login.component";
-import {LandingPageComponent} from "./components/landing-page/landing-page.component";
-import {CategoriesComponent} from "./components/categories/categories.component";
-import {AuthenticationService} from "./services/authentication.service";
-import {OperationsComponent} from "./components/operations/operations.component";
 
 const routes: Routes = [
-  { path: '', component: LandingPageComponent },
-  { path: 'user/login', component: LoginComponent },
-  { path: 'categories', component: CategoriesComponent, canActivate: [AuthenticationService] },
-  { path: 'operations', component: OperationsComponent, canActivate: [AuthenticationService] },
-
-  // otherwise redirect to login page
-  { path: '**', redirectTo: '/' }
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', loadChildren: "./modules/home/home.module#HomeModule"},
+  { path: 'operations', loadChildren: "./modules/operations/operations.module#OperationsModule" },
+  { path: 'categories', loadChildren: "./modules/categories/category.module#CategoryModule" },
+  { path: 'user', loadChildren: "./modules/user/user.module#UserModule" }
 ];
 
 @NgModule({

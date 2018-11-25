@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {DataService} from "../../services/data.service";
-import {TableColumn} from "../table/table.component";
+import {DataService} from "../../../../core/services/data.service";
+import {TableColumn} from "../../../../shared/components/table/table.component";
 
 @Component({
   selector: 'app-operations',

@@ -1,0 +1,16 @@
+<div >
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <button mat-button routerLinkActive="active" routerLink="home">Home</button>
+      <ng-container *showIfAuth="true" >
+        <button mat-button routerLink="categories" >Categories</button>
+        <button mat-button routerLink="operations" >Operations</button>
+      </ng-container>
+
+      <span class="spacer"></span>
+
+      <button *showIfAuth="false" mat-button routerLinkActive="active" routerLink="/user/login">Login</button>
+      <button *showIfAuth="true" mat-button (click)="logout()" >Logout</button>
+    </mat-toolbar-row>
+  </mat-toolbar>
+</div>

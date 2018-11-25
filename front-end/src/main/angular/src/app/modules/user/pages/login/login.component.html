@@ -15,8 +15,6 @@
           <input matInput placeholder="Password" [(ngModel)]="user.password" type="password" name="password" required minlength="5" #password="ngModel">
         </mat-form-field>
         <app-validations [field]="'Password'" [control]="password"></app-validations>
-
-        <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
       </mat-card-content>
 
       <mat-card-actions fxLayout fxLayoutAlign="center">
