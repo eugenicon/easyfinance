@@ -3,7 +3,7 @@ import {CellDescription, TableCell} from "../table/table.component";
 
 export class TextCell<T> implements CellDescription<T> {
   getCellType() {
-    return <T>TableCellTextComponent;
+    return TableCellTextComponent;
   }
 }
 

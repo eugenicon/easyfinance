@@ -15,7 +15,7 @@ export class TableCell<T> implements OnInit {
 }
 
 export interface CellDescription<T> {
-  getCellType(): Type<TableCell>;
+  getCellType(): Type<TableCell<T>>;
 }
 
 export class TableColumn<T> {
@@ -24,7 +24,7 @@ export class TableColumn<T> {
   value?: (item: T) => {};
   cell?: CellDescription<T>;
 
-  static value(item: any, column: TableColumn) {
+  static  value<T>(item: any, column: TableColumn<T>) {
     return column.value == undefined ? item[column.name] : column.value(item)
   }
 }
@@ -34,11 +34,11 @@ export class TableColumn<T> {
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css']
 })
-export class TableComponent implements OnInit {
-  @Input() dataProvider: Observable<any[]>;
-  @Input() columns: TableColumn[] = [];
+export class TableComponent<T> implements OnInit {
+  @Input() dataProvider: Observable<T[]>;
+  @Input() columns: TableColumn<T>[] = [];
   columnNames: string[] = [];
-  columnsByName: Map<string, TableColumn> = new Map<string, TableColumn>();
+  columnsByName: Map<string, TableColumn<T>> = new Map<string, TableColumn<T>>();
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>([]);
 
   @ViewChild(MatSort) set matSort(ms: MatSort) {
@@ -70,7 +70,7 @@ export class TableComponent implements OnInit {
     this.dataSource.filter = filter.trim().toLowerCase();
   }
 
-  label(column: TableColumn) {
+  label(column: TableColumn<T>) {
     return column.title || this.capitalizeFirstLetter(column.name);
   }
 
@@ -95,7 +95,7 @@ export class TableComponent implements OnInit {
   }
 
   private initColumns(inst: any) {
-    let columns: TableColumn[] = [];
+    let columns: TableColumn<T>[] = [];
     for (let key in inst) {
       columns.push({name: key})
     }
