@@ -13,7 +13,7 @@ spring.jackson.serialization.indent_output: true
 
 spring.security:
   user.name: user
-  user.password: 123
+  user.password: 12345
 
 application:
   security:

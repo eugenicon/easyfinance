@@ -1,5 +1,5 @@
 <div fxLayout fxLayoutAlign="center center" class="login-container">
-  <form (submit)="login()">
+  <form (submit)="login(form)" #form="ngForm">
     <mat-card>
       <mat-card-header>
         <mat-card-title>Login</mat-card-title>

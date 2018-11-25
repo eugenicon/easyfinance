@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Router} from "@angular/router";
-import {BehaviorSubject} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -22,11 +22,13 @@ export class AuthenticationService {
     return this.http.get<boolean>('api/user/authenticated', {headers: headers});
   }
 
-  login(credentials = undefined, navigateAfter: string = '/') {
-    this.isUserAuthenticated(credentials).subscribe(authenticated => {
+  login(credentials = undefined, navigateAfter: string = '/'): Observable<boolean> {
+    let observable = this.isUserAuthenticated(credentials);
+    observable.subscribe(authenticated => {
       this.isAuthenticatedSubject.next(authenticated);
       this.router.navigateByUrl(navigateAfter);
     });
+    return observable;
   }
 
   logout(navigateAfter: string) {

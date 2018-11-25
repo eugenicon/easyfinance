@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {AuthenticationService} from "../../../../core/services/authentication.service";
 import {User} from "../../user.model";
+import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'app-login',
@@ -23,7 +24,11 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  login() {
-    this.auth.login(this.user);
+  login(form: NgForm) {
+    if (!form.valid) {
+      return;
+    }
+
+    this.auth.login(this.user)
   }
 }
