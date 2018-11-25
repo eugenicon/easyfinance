@@ -51,14 +51,14 @@ export class TableComponent implements OnInit {
 
   applyFilter(data: any, filter: string) {
     let dataAsStringProperty = '_dataAsString';
-    let dataAsString = data[dataAsStringProperty];
+    let dataAsString: string = data[dataAsStringProperty];
 
     if (!dataAsString) {
       let accumulator = (string, key) => string + '◬' + this.value(data, this.columnsByName.get(key));
       dataAsString = this.columnNames.reduce(accumulator, '').toLowerCase();
     }
 
-    return dataAsString.indexOf(filter) != -1;
+    return dataAsString.match(filter);
   }
 
   retrieveValueForSorting(data: any, key: string) {
