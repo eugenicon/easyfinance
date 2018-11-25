@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {DataService} from "../../../../core/services/data.service";
 import {TableColumn} from "../../../../shared/components/table/table.component";
+import {Operation} from "../../operation.model";
 
 @Component({
   selector: 'app-operations',
@@ -10,7 +11,7 @@ import {TableColumn} from "../../../../shared/components/table/table.component";
 export class OperationsComponent implements OnInit {
   columns: TableColumn[] = [
     {name: "id"},
-    {name: "category", value: (item) => {return item.category.name}},
+    {name: "category", value: (item: Operation) => {return item.category.name}},
     {name: "description"},
     {name: "sum"},
   ];

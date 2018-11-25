@@ -32,6 +32,7 @@ export class TableComponent implements OnInit {
     this.dataProvider.subscribe(value => {
       this.dataSource.data = value;
       this.dataSource.filterPredicate = this.applyFilter.bind(this);
+      this.dataSource.sortingDataAccessor = this.retrieveValueForSorting.bind(this);
       if (value.length && this.columns.length == 0) {
         this.columns = this.initColumns(value[0]);
       }
@@ -58,6 +59,10 @@ export class TableComponent implements OnInit {
     }
 
     return dataAsString.indexOf(filter) != -1;
+  }
+
+  retrieveValueForSorting(data: any, key: string) {
+    return this.value(data, this.columnsByName.get(key));
   }
 
   capitalizeFirstLetter(string: string) {
