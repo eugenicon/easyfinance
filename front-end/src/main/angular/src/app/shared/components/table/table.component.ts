@@ -1,11 +1,32 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, Type, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
 import {Observable} from "rxjs";
 
-export class TableColumn {
+export class TableCell<T> implements OnInit {
+  item: any;
+  column: TableColumn<T>;
+
+  value() {
+    return TableColumn.value(this.item, this.column)
+  }
+
+  ngOnInit(): void {
+  }
+}
+
+export interface CellDescription<T> {
+  getCellType(): Type<TableCell>;
+}
+
+export class TableColumn<T> {
   name: string;
   title?: string;
-  value?: (item) => {};
+  value?: (item: T) => {};
+  cell?: CellDescription<T>;
+
+  static value(item: any, column: TableColumn) {
+    return column.value == undefined ? item[column.name] : column.value(item)
+  }
 }
 
 @Component({
@@ -49,35 +70,31 @@ export class TableComponent implements OnInit {
     this.dataSource.filter = filter.trim().toLowerCase();
   }
 
-  applyFilter(data: any, filter: string) {
+  label(column: TableColumn) {
+    return column.title || this.capitalizeFirstLetter(column.name);
+  }
+
+  private applyFilter(data: any, filter: string) {
     let dataAsStringProperty = '_dataAsString';
     let dataAsString: string = data[dataAsStringProperty];
 
     if (!dataAsString) {
-      let accumulator = (string, key) => string + '◬' + this.value(data, this.columnsByName.get(key));
+      let accumulator = (string, key) => string + '◬' + TableColumn.value(data, this.columnsByName.get(key));
       dataAsString = this.columnNames.reduce(accumulator, '').toLowerCase();
     }
 
     return dataAsString.match(filter);
   }
 
-  retrieveValueForSorting(data: any, key: string) {
-    return this.value(data, this.columnsByName.get(key));
+  private retrieveValueForSorting(data: any, key: string) {
+    return TableColumn.value(data, this.columnsByName.get(key));
   }
 
-  capitalizeFirstLetter(string: string) {
+  private capitalizeFirstLetter(string: string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
-  label(column: TableColumn) {
-    return column.title || this.capitalizeFirstLetter(column.name);
-  }
-
-  value(item: any, column: TableColumn) {
-    return column.value == undefined ? item[column.name] : column.value(item)
-  }
-
-  initColumns(inst: any) {
+  private initColumns(inst: any) {
     let columns: TableColumn[] = [];
     for (let key in inst) {
       columns.push({name: key})

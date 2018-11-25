@@ -18,8 +18,11 @@ import {AppFooter} from "./layout/footer/app.footer";
 import {HttpClientModule} from "@angular/common/http";
 import {RouterModule} from "@angular/router";
 import {FlexLayoutModule} from "@angular/flex-layout";
-import {ShowAuthenticatedDirective} from "./directives/show-authenticated.directive";
+import {ShowAuthenticatedDirective} from "./directives/show-authenticated/show-authenticated.directive";
 import {ObjToKeysPipe} from "./pipes/pipes";
+import { TableCellTextComponent } from './components/table-cell-text/table-cell-text.component';
+import { TableCellLinkComponent } from './components/table-cell-link/table-cell-link.component';
+import { TableCellDirective } from './directives/table-cell/table-cell.directive';
 
 @NgModule({
   imports: [
@@ -38,11 +41,14 @@ import {ObjToKeysPipe} from "./pipes/pipes";
 
   ],
   declarations: [
-    TableComponent,
     ValidationsComponent,
     ShowAuthenticatedDirective,
     AppHeader,
-    AppFooter
+    AppFooter,
+    TableComponent,
+    TableCellTextComponent,
+    TableCellLinkComponent,
+    TableCellDirective
   ],
   exports: [
     CommonModule,
@@ -63,6 +69,11 @@ import {ObjToKeysPipe} from "./pipes/pipes";
     MatButtonModule,
     FlexLayoutModule,
   ],
+  entryComponents: [
+    TableCellTextComponent,
+    TableCellLinkComponent,
+  ],
+
    providers: [ObjToKeysPipe],
 })
 export class SharedModule { }

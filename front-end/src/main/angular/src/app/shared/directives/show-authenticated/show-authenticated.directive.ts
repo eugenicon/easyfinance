@@ -1,5 +1,5 @@
 import {Directive, Input, OnInit, TemplateRef, ViewContainerRef} from '@angular/core';
-import {AuthenticationService} from "../../core/services/authentication.service";
+import {AuthenticationService} from "../../../core/services/authentication.service";
 
 @Directive({
   selector: '[showIfAuth]'
