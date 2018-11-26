@@ -1,6 +1,7 @@
 import {Component, Input, OnInit, Type, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
 import {Observable} from "rxjs";
+import {StringUtils} from "../../../core/utils/string-utils";
 
 export class TableCell<T> implements OnInit {
   item: any;
@@ -73,7 +74,7 @@ export class TableComponent<T> implements OnInit {
   }
 
   label(column: TableColumn<T>) {
-    return column.title || this.capitalizeFirstLetter(column.name);
+    return column.title || StringUtils.capitalizeFirstLetter(column.name);
   }
 
   add() {
@@ -94,10 +95,6 @@ export class TableComponent<T> implements OnInit {
 
   private retrieveValueForSorting(data: any, key: string) {
     return TableColumn.value(data, this.columnsByName.get(key));
-  }
-
-  private capitalizeFirstLetter(string: string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
   private initColumns(inst: any) {
