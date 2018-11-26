@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddCategoryDialogComponent } from './add-category-dialog.component';
+import { TableCellActionComponent } from './table-cell-action.component';
 
-describe('AddCategoryDialogComponent', () => {
-  let component: AddCategoryDialogComponent;
-  let fixture: ComponentFixture<AddCategoryDialogComponent>;
+describe('TableCellActionComponent', () => {
+  let component: TableCellActionComponent;
+  let fixture: ComponentFixture<TableCellActionComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddCategoryDialogComponent ]
+      declarations: [ TableCellActionComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AddCategoryDialogComponent);
+    fixture = TestBed.createComponent(TableCellActionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

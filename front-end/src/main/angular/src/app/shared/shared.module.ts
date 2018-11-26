@@ -25,6 +25,7 @@ import {TableCellTextComponent} from './components/table-cell-text/table-cell-te
 import {TableCellLinkComponent} from './components/table-cell-link/table-cell-link.component';
 import {TableCellDirective} from './directives/table-cell/table-cell.directive';
 import {LayoutModule} from "@angular/cdk/layout";
+import { TableCellActionComponent } from './components/table-cell-action/table-cell-action.component';
 
 @NgModule({
   imports: [
@@ -55,7 +56,8 @@ import {LayoutModule} from "@angular/cdk/layout";
     TableComponent,
     TableCellTextComponent,
     TableCellLinkComponent,
-    TableCellDirective
+    TableCellDirective,
+    TableCellActionComponent
   ],
   exports: [
     CommonModule,
@@ -82,6 +84,7 @@ import {LayoutModule} from "@angular/cdk/layout";
   entryComponents: [
     TableCellTextComponent,
     TableCellLinkComponent,
+    TableCellActionComponent,
   ],
 
    providers: [ObjToKeysPipe, {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: true, disableClose: true}}],

@@ -5,25 +5,24 @@ import {DataService} from "../../../../core/services/data.service";
 import {NgForm} from "@angular/forms";
 
 @Component({
-  selector: 'app-add-category-dialog',
-  templateUrl: './add-category-dialog.component.html',
-  styleUrls: ['./add-category-dialog.component.css']
+  selector: 'app-save-category-dialog',
+  templateUrl: './save-category-dialog.component.html',
+  styleUrls: ['./save-category-dialog.component.css']
 })
-export class AddCategoryDialogComponent implements OnInit {
+export class SaveCategoryDialogComponent implements OnInit {
   types: string[] = [];
 
   constructor(
-    public dialogRef: MatDialogRef<AddCategoryDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Category, private dataService: DataService) {}
+    public dialogRef: MatDialogRef<SaveCategoryDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: Category, private dataService: DataService) {
+  }
 
   onCancel(): void {
     this.dialogRef.close();
   }
 
   onSave(form: NgForm): void {
-    if (!form.valid) {
-      return;
-    }
+    if (!form.valid) return;
 
     this.dataService.saveCategory(this.data).subscribe(value => {
       this.dialogRef.close(this.data);
@@ -31,8 +30,9 @@ export class AddCategoryDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.types.push(this.data.type);
     this.dataService.getCategoryTypes().subscribe(value => {
-      value.forEach(i => this.types.push(i));
+      this.types = value;
       if (!this.data.type || !this.data.type.length) {
         this.data.type = this.types[0];
       }

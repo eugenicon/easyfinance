@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {DataService} from "../../../../core/services/data.service";
 import {MatDialog} from "@angular/material";
-import {AddCategoryDialogComponent} from "../../components/add-category-dialog/add-category-dialog.component";
+import {SaveCategoryDialogComponent} from "../../components/save-category-dialog/save-category-dialog.component";
 import {Category} from "../../category.model";
 import {BehaviorSubject} from "rxjs";
 
@@ -13,28 +13,24 @@ import {BehaviorSubject} from "rxjs";
 export class CategoriesComponent implements OnInit {
   data = new BehaviorSubject<Category[]>([]);
 
-  constructor(protected dataService: DataService, public dialog: MatDialog) { }
+  constructor(protected dataService: DataService, public dialog: MatDialog) {
+  }
 
   ngOnInit(): void {
     this.updateData();
   }
 
-  private updateData() {
-    this.dataService.getCategories().subscribe(value => {
-      this.data.next(value);
+  openSaveDialog(data: Category = new Category()) {
+    const dialog = this.dialog.open(SaveCategoryDialogComponent, {width: '300px', data: data});
+
+    dialog.afterClosed().subscribe(result => {
+      if (result) this.updateData();
     });
   }
 
-  add() {
-    const dialog = this.dialog.open(AddCategoryDialogComponent, {
-      width: '300px',
-      data: new Category()
-    });
-
-    dialog.afterClosed().subscribe(result => {
-      if (result) {
-        this.updateData();
-      }
+  private updateData() {
+    this.dataService.getCategories().subscribe(value => {
+      this.data.next(value);
     });
   }
 }

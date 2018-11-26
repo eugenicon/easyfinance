@@ -19,8 +19,8 @@ export class DataService {
     return this.http.get<string[]>('/api/categories/types' );
   }
 
-  saveCategory(category: Category): Observable<any> {
-    return this.http.post('/api/categories/save', category);
+  saveCategory(data: Category): Observable<any> {
+    return this.http.post('/api/categories/save', data);
   }
 
   getOperations(): Observable<Operation[]> {
@@ -29,5 +29,9 @@ export class DataService {
 
   getEmpty(): Observable<any[]> {
     return new Observable<any[]>();
+  }
+
+  saveOperation(data: Operation): Observable<any> {
+    return this.http.post('/api/operations/save', data);
   }
 }

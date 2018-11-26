@@ -1,8 +1,13 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Type} from '@angular/core';
 import {DataService} from "../../../../core/services/data.service";
 import {TableColumn} from "../../../../shared/components/table/table.component";
 import {Operation} from "../../operation.model";
-import {LinkCell} from "../../../../shared/components/table-cell-link/table-cell-link.component";
+import {BehaviorSubject} from "rxjs";
+import {Category} from "../../../categories/category.model";
+import {SaveCategoryDialogComponent} from "../../../categories/components/save-category-dialog/save-category-dialog.component";
+import {MatDialog} from "@angular/material";
+import {SaveOperationDialogComponent} from "../../components/save-operation-dialog/save-operation-dialog.component";
+import {ActionCell} from "../../../../shared/components/table-cell-action/table-cell-action.component";
 
 @Component({
   selector: 'app-operations',
@@ -10,16 +15,44 @@ import {LinkCell} from "../../../../shared/components/table-cell-link/table-cell
   styleUrls: ['./operations.component.css']
 })
 export class OperationsComponent implements OnInit {
+  data = new BehaviorSubject<Operation[]>([]);
+
   columns: TableColumn<Operation>[] = [
     {name: "id"},
-    {name: "category", value: (it) => {return it.category.name},
-      cell: new LinkCell<Operation>((it) => {return `operation/${it.category.id}`})},
+    {
+      name: "category", value: it => it.category.name,
+      cell: new ActionCell<Operation>(it => this.openCategoryDialog(it.category))
+    },
     {name: "description"},
     {name: "sum"},
   ];
 
-  constructor(protected dataService: DataService) { }
+  constructor(protected dataService: DataService, public dialog: MatDialog) {
+  }
 
   ngOnInit() {
+    this.updateData();
+  }
+
+  openCategoryDialog(category: Category) {
+    this.openDialog(SaveCategoryDialogComponent, category);
+  }
+
+  openSaveDialog(data: Operation = new Operation()) {
+    this.openDialog(SaveOperationDialogComponent, data);
+  }
+
+  private openDialog(dialogType: Type<any>, data: any) {
+    const dialog = this.dialog.open(dialogType, {width: '300px', data: data});
+
+    dialog.afterClosed().subscribe(result => {
+      if (result) this.updateData();
+    });
+  }
+
+  private updateData() {
+    this.dataService.getOperations().subscribe(value => {
+      this.data.next(value);
+    });
   }
 }
