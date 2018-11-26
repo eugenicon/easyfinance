@@ -18,4 +18,8 @@ export class DataService {
   getOperations(): Observable<Operation[]> {
     return this.http.get<Operation[]>('/api/operations/all' );
   }
+
+  getEmpty(): Observable<any[]> {
+    return new Observable<any[]>();
+  }
 }

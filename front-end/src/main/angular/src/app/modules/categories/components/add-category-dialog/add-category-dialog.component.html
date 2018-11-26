@@ -1,0 +1,20 @@
+<h1 mat-dialog-title>New Category</h1>
+<div mat-dialog-content>
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.name"  placeholder="Name" #name="ngModel" required>
+  </mat-form-field>
+  <app-validations [field]="'Name'" [control]="name"></app-validations>
+
+  <mat-form-field>
+    <mat-select [(ngModel)]="data.type" placeholder="Type" #type="ngModel" required>
+      <mat-option *ngFor="let item of types" [value]="types[0]">
+        {{item}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <app-validations [field]="'Type'" [control]="type"></app-validations>
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial color="primary">Save</button>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+</div>

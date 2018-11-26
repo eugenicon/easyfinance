@@ -37,6 +37,8 @@ export class TableColumn<T> {
 export class TableComponent<T> implements OnInit {
   @Input() dataProvider: Observable<T[]>;
   @Input() columns: TableColumn<T>[] = [];
+  @Input() addHandler?: () => {};
+
   columnNames: string[] = [];
   columnsByName: Map<string, TableColumn<T>> = new Map<string, TableColumn<T>>();
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>([]);
@@ -72,6 +74,10 @@ export class TableComponent<T> implements OnInit {
 
   label(column: TableColumn<T>) {
     return column.title || this.capitalizeFirstLetter(column.name);
+  }
+
+  add() {
+    this.addHandler();
   }
 
   private applyFilter(data: any, filter: string) {

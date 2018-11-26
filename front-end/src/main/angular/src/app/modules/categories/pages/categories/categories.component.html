@@ -1,4 +1,3 @@
 <div fxLayout fxLayoutAlign="center">
-  <app-table [dataProvider]="dataService.getCategories()" ></app-table>
-
+  <app-table [dataProvider]="dataService.getCategories()" [addHandler]="add.bind(this)" ></app-table>
 </div>

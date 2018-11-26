@@ -1,10 +1,11 @@
 import {NgModule} from '@angular/core';
 import {
+  MAT_DIALOG_DEFAULT_OPTIONS,
   MatButtonModule,
-  MatCardModule,
+  MatCardModule, MatDialogModule,
   MatFormFieldModule,
-  MatInputModule,
-  MatPaginatorModule,
+  MatInputModule, MatOptionModule,
+  MatPaginatorModule, MatSelectModule,
   MatSortModule,
   MatTableModule,
   MatToolbarModule
@@ -20,9 +21,10 @@ import {RouterModule} from "@angular/router";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {ShowAuthenticatedDirective} from "./directives/show-authenticated/show-authenticated.directive";
 import {ObjToKeysPipe} from "./pipes/pipes";
-import { TableCellTextComponent } from './components/table-cell-text/table-cell-text.component';
-import { TableCellLinkComponent } from './components/table-cell-link/table-cell-link.component';
-import { TableCellDirective } from './directives/table-cell/table-cell.directive';
+import {TableCellTextComponent} from './components/table-cell-text/table-cell-text.component';
+import {TableCellLinkComponent} from './components/table-cell-link/table-cell-link.component';
+import {TableCellDirective} from './directives/table-cell/table-cell.directive';
+import {LayoutModule} from "@angular/cdk/layout";
 
 @NgModule({
   imports: [
@@ -38,7 +40,12 @@ import { TableCellDirective } from './directives/table-cell/table-cell.directive
     MatSortModule,
     MatPaginatorModule,
     MatInputModule,
+    MatDialogModule,
+    MatOptionModule,
+    MatSelectModule,
 
+    LayoutModule,
+    FlexLayoutModule,
   ],
   declarations: [
     ValidationsComponent,
@@ -68,12 +75,15 @@ import { TableCellDirective } from './directives/table-cell/table-cell.directive
     MatInputModule,
     MatButtonModule,
     FlexLayoutModule,
+    MatDialogModule,
+    MatOptionModule,
+    MatSelectModule,
   ],
   entryComponents: [
     TableCellTextComponent,
     TableCellLinkComponent,
   ],
 
-   providers: [ObjToKeysPipe],
+   providers: [ObjToKeysPipe, {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: true, disableClose: true}}],
 })
 export class SharedModule { }
