@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Router} from "@angular/router";
-import {BehaviorSubject, Observable} from "rxjs";
+import {BehaviorSubject} from "rxjs";
+import {map} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -19,22 +20,28 @@ export class AuthenticationService {
       authorization: 'Basic ' + btoa(credentials.username + ':' + credentials.password)
     } : {});
 
-    return this.http.get<boolean>('api/user/authenticated', {headers: headers});
+    let observable = this.http.get<boolean>('api/user/authenticated', {headers: headers});
+    return observable.pipe(map(authenticated => {
+      let wasAuthenticated = this.isAuthenticatedSubject.getValue();
+      this.isAuthenticatedSubject.next(authenticated);
+      if (wasAuthenticated && !authenticated) {
+        this.router.navigateByUrl('user/login');
+      }
+      return authenticated
+    }));
   }
 
-  login(credentials = undefined, navigateAfter: string = '/'): Observable<boolean> {
+  login(credentials = undefined, navigateAfter: string = '/') {
     let observable = this.isUserAuthenticated(credentials);
     observable.subscribe(authenticated => {
-      this.isAuthenticatedSubject.next(authenticated);
       this.router.navigateByUrl(navigateAfter);
     });
-    return observable;
   }
 
   logout(navigateAfter: string) {
     this.http.post('/logout', {}).subscribe(() => {
-            this.isAuthenticatedSubject.next(false);
-            this.router.navigateByUrl(navigateAfter);
-        });
+      this.isAuthenticatedSubject.next(false);
+      this.router.navigateByUrl(navigateAfter);
+    });
   }
 }
