@@ -3,7 +3,7 @@ import {
   MAT_DIALOG_DEFAULT_OPTIONS,
   MatButtonModule,
   MatCardModule, MatDialogModule,
-  MatFormFieldModule,
+  MatFormFieldModule, MatIconModule,
   MatInputModule, MatOptionModule,
   MatPaginatorModule, MatSelectModule,
   MatSortModule,
@@ -47,6 +47,8 @@ import { TableCellActionComponent } from './components/table-cell-action/table-c
 
     LayoutModule,
     FlexLayoutModule,
+
+    MatIconModule
   ],
   declarations: [
     ValidationsComponent,

@@ -12,18 +12,28 @@
         <td mat-cell *matCellDef="let element"> <ng-container app-table-cell [column]="col" [item]="element"></ng-container></td>
       </ng-container>
 
+      <ng-container  matColumnDef="_row_actions">
+        <th mat-header-cell *matHeaderCellDef > </th>
+        <td mat-cell *matCellDef="let element" style="text-align: right; width: 50px; padding-right: 10px;">
+          <div class="table-options">
+            <mat-icon *ngIf="editHandler" (click)="editHandler(element)" style="cursor: pointer">edit</mat-icon>
+            <mat-icon *ngIf="deleteHandler" (click)="deleteHandler(element)" style="cursor: pointer">delete</mat-icon>
+          </div>
+        </td>
+      </ng-container>
+
       <tr mat-header-row *matHeaderRowDef="columnNames"></tr>
       <tr mat-row *matRowDef="let row; columns: columnNames;"></tr>
 
     </table>
     <div style="display: flex; background-color: white" class="floating-button">
       <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons ></mat-paginator>
-      <button mat-mini-fab color="primary" class="floating-button" *ngIf="addHandler" (click)="add()">Add</button>
+      <button mat-mini-fab color="primary" class="floating-button" *ngIf="addHandler" (click)="addHandler()">Add</button>
     </div>
   </div>
 </div>
 
 <div class="no-content" *ngIf="!dataSource.data.length" >
   <img src="../../../../assets/no-data.png" style="height: 400px"/>
-  <button mat-button mat-raised-button color="primary" *ngIf="addHandler" (click)="add()">Add Record</button>
+  <button mat-button mat-raised-button color="primary" *ngIf="addHandler" (click)="addHandler()">Add Record</button>
 </div>

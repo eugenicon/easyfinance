@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, HostListener, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
 import {Category} from "../../category.model";
 import {DataService} from "../../../../core/services/data.service";
@@ -17,7 +17,7 @@ export class SaveCategoryDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: Category, private dataService: DataService) {
   }
 
-  onCancel(): void {
+  @HostListener('window:keyup.esc') onCancel(): void {
     this.dialogRef.close();
   }
 

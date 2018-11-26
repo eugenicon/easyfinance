@@ -39,6 +39,8 @@ export class TableComponent<T> implements OnInit {
   @Input() dataProvider: Observable<T[]>;
   @Input() columns: TableColumn<T>[] = [];
   @Input() addHandler?: () => {};
+  @Input() editHandler?: (it: T) => {};
+  @Input() deleteHandler?: (it: T) => {};
 
   columnNames: string[] = [];
   columnsByName: Map<string, TableColumn<T>> = new Map<string, TableColumn<T>>();
@@ -65,6 +67,7 @@ export class TableComponent<T> implements OnInit {
           this.columnNames.push(c.name);
           this.columnsByName.set(c.name, c);
         });
+        this.columnNames.push('_row_actions');
       }
     })
   }
@@ -75,10 +78,6 @@ export class TableComponent<T> implements OnInit {
 
   label(column: TableColumn<T>) {
     return column.title || StringUtils.capitalizeFirstLetter(column.name);
-  }
-
-  add() {
-    this.addHandler();
   }
 
   private applyFilter(data: any, filter: string) {

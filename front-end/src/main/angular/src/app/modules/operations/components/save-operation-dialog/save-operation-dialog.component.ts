@@ -1,9 +1,10 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, HostListener, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
 import {Category} from "../../../categories/category.model";
 import {DataService} from "../../../../core/services/data.service";
 import {NgForm} from "@angular/forms";
 import {Operation} from "../../operation.model";
+import * as deepEqual from "deep-equal";
 
 @Component({
   selector: 'app-save-operation-dialog',
@@ -18,7 +19,7 @@ export class SaveOperationDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: Operation, private dataService: DataService) {
   }
 
-  onCancel(): void {
+  @HostListener('window:keyup.esc') onCancel() {
     this.dialogRef.close();
   }
 
@@ -31,9 +32,15 @@ export class SaveOperationDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.categories.push(this.data.category);
+    if (this.data.category) {
+      this.categories.push(this.data.category);
+    }
+
     this.dataService.getCategories().subscribe(value => {
-      this.categories = value;
+      value
+        .filter(i => !deepEqual(i, this.data.category))
+        .forEach(i => this.categories.push(i));
+
       if (!this.data.category) {
         this.data.category = this.categories[0];
       }
