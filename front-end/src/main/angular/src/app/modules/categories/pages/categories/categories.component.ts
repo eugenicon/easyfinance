@@ -4,6 +4,7 @@ import {MatDialog} from "@angular/material";
 import {SaveCategoryDialogComponent} from "../../components/save-category-dialog/save-category-dialog.component";
 import {Category} from "../../category.model";
 import {BehaviorSubject} from "rxjs";
+import {ConfirmDialogComponent} from "../../../../shared/components/confirm-dialog/confirm-dialog.component";
 
 @Component({
   selector: 'app-categories',
@@ -25,6 +26,14 @@ export class CategoriesComponent implements OnInit {
 
     dialog.afterClosed().subscribe(result => {
       if (result) this.updateData();
+    });
+  }
+
+  openDeleteDialog(data: Category) {
+    const dialog = this.dialog.open(ConfirmDialogComponent, {width: '300px', data: data});
+
+    dialog.afterClosed().subscribe(result => {
+      if (result) this.dataService.deleteCategory(data).subscribe(value => this.updateData())
     });
   }
 

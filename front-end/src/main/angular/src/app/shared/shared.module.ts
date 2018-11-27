@@ -26,6 +26,7 @@ import {TableCellLinkComponent} from './components/table-cell-link/table-cell-li
 import {TableCellDirective} from './directives/table-cell/table-cell.directive';
 import {LayoutModule} from "@angular/cdk/layout";
 import { TableCellActionComponent } from './components/table-cell-action/table-cell-action.component';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   imports: [
@@ -59,7 +60,8 @@ import { TableCellActionComponent } from './components/table-cell-action/table-c
     TableCellTextComponent,
     TableCellLinkComponent,
     TableCellDirective,
-    TableCellActionComponent
+    TableCellActionComponent,
+    ConfirmDialogComponent
   ],
   exports: [
     CommonModule,

@@ -1,6 +1,6 @@
 import {ComponentFactoryResolver, Directive, Input, OnInit, ViewContainerRef} from '@angular/core';
 import {TableCell, TableColumn} from "../../components/table/table.component";
-import {TableCellTextComponent, TextCell} from "../../components/table-cell-text/table-cell-text.component";
+import {TextCell} from "../../components/table-cell-text/table-cell-text.component";
 
 @Directive({
   selector: '[app-table-cell]'
@@ -14,7 +14,7 @@ export class TableCellDirective<T> implements OnInit{
   ngOnInit(): void {
     let cellDescription = this.column.cell;
     if (!cellDescription) {
-      cellDescription = new TextCell<any>()
+      cellDescription = new TextCell<T>()
     }
 
     const factory = this.resolver.resolveComponentFactory(cellDescription.getCellType());

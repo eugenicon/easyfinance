@@ -11,4 +11,6 @@ class OperationService(private val repository: OperationRepository) {
     fun getById(id: Long) = repository.getOne(id)
 
     fun save(entity: Operation) = repository.save(entity)
+
+    fun delete(entity: Operation) = repository.delete(entity)
 }

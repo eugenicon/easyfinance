@@ -8,6 +8,7 @@ import {SaveCategoryDialogComponent} from "../../../categories/components/save-c
 import {MatDialog} from "@angular/material";
 import {SaveOperationDialogComponent} from "../../components/save-operation-dialog/save-operation-dialog.component";
 import {ActionCell} from "../../../../shared/components/table-cell-action/table-cell-action.component";
+import {ConfirmDialogComponent} from "../../../../shared/components/confirm-dialog/confirm-dialog.component";
 
 @Component({
   selector: 'app-operations',
@@ -40,6 +41,14 @@ export class OperationsComponent implements OnInit {
 
   openSaveDialog(data: Operation = new Operation()) {
     this.openDialog(SaveOperationDialogComponent, data);
+  }
+
+  openDeleteDialog(data: Operation) {
+    const dialog = this.dialog.open(ConfirmDialogComponent, {width: '300px', data: data});
+
+    dialog.afterClosed().subscribe(result => {
+      if (result) this.dataService.deleteOperation(data).subscribe(value => this.updateData())
+    });
   }
 
   private openDialog(dialogType: Type<any>, data: any) {

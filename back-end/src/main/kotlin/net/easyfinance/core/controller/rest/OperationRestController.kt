@@ -15,4 +15,9 @@ class OperationRestController(private val service: OperationService) {
     fun save(@RequestBody operation: Operation) {
         service.save(operation)
     }
+
+    @DeleteMapping("/delete")
+    fun delete(@RequestBody operation: Operation) {
+        service.delete(operation)
+    }
 }

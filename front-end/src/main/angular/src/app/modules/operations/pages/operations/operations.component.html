@@ -1,3 +1,3 @@
 <div fxLayout fxLayoutAlign="center">
-  <app-table [dataProvider]="data.asObservable()" [columns]="columns" [addHandler] = "openSaveDialog.bind(this)" [editHandler]="openSaveDialog.bind(this)"></app-table>
+  <app-table [dataProvider]="data.asObservable()" [columns]="columns" [addHandler] = "openSaveDialog.bind(this)" [editHandler]="openSaveDialog.bind(this)" [deleteHandler]="openDeleteDialog.bind(this)"></app-table>
 </div>

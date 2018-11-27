@@ -19,4 +19,9 @@ class CategoryRestController(private val service: CategoryService) {
     fun save(@RequestBody category: Category) {
         service.save(category)
     }
+
+    @DeleteMapping("/delete")
+    fun delete(@RequestBody category: Category) {
+        service.delete(category)
+    }
 }
