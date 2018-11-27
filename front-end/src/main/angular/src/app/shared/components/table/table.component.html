@@ -1,5 +1,5 @@
 <div class="tableContainer" *ngIf="dataSource.data.length">
-  <div class="table-top" fxLayout fxLayoutAlign="center" >
+  <div class="table-top" >
     <mat-form-field >
       <input matInput (keyup)="updateFilterValue($event.target.value)" placeholder="Filter">
     </mat-form-field>
@@ -33,7 +33,11 @@
   </div>
 </div>
 
-<div class="no-content" *ngIf="!dataSource.data.length" >
+<div class="no-content" *ngIf="!dataSource.data.length && isUpdating == false" >
   <img src="../../../../assets/no-data.png" style="height: 400px"/>
   <button mat-button mat-raised-button color="primary" *ngIf="addHandler" (click)="addHandler()">Add Record</button>
+</div>
+
+<div *ngIf="isUpdating" >
+  <mat-spinner style="margin: 150px auto;" mode="indeterminate"></mat-spinner>
 </div>

@@ -6,9 +6,13 @@ import {StringUtils} from "../../../core/utils/string-utils";
 export class TableCell<T> implements OnInit {
   item: any;
   column: TableColumn<T>;
+  cellValue: any;
 
   value() {
-    return TableColumn.value(this.item, this.column)
+    if (!this.cellValue) {
+      this.cellValue = TableColumn.value(this.item, this.column);
+    }
+    return this.cellValue;
   }
 
   ngOnInit(): void {
@@ -26,6 +30,7 @@ export class TableColumn<T> {
   cell?: CellDescription<T>;
 
   static value<T>(item: any, column: TableColumn<T>) {
+    //console.log(`got value for line ${item.id} col ${column.name}`);
     if (!column) return '';
     return column.value == undefined ? item[column.name] : column.value(item)
   }
@@ -46,6 +51,7 @@ export class TableComponent<T> implements OnInit {
   columnNames: string[] = [];
   columnsByName: Map<string, TableColumn<T>> = new Map<string, TableColumn<T>>();
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>([]);
+  isUpdating = true;
 
   @ViewChild(MatSort) set matSort(ms: MatSort) {
     this.dataSource.sort = ms;
@@ -56,6 +62,7 @@ export class TableComponent<T> implements OnInit {
   }
 
   ngOnInit() {
+    this.isUpdating = true;
     this.dataProvider.subscribe(value => {
       this.dataSource.data = value;
       this.dataSource.filterPredicate = this.applyFilter.bind(this);
@@ -70,6 +77,8 @@ export class TableComponent<T> implements OnInit {
         });
         this.columnNames.push('_row_actions');
       }
+      console.log(`data received: ${value.length}`)
+      this.isUpdating = false;
     })
   }
 
