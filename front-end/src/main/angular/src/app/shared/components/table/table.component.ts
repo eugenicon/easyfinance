@@ -25,7 +25,8 @@ export class TableColumn<T> {
   value?: (item: T) => {};
   cell?: CellDescription<T>;
 
-  static  value<T>(item: any, column: TableColumn<T>) {
+  static value<T>(item: any, column: TableColumn<T>) {
+    if (!column) return '';
     return column.value == undefined ? item[column.name] : column.value(item)
   }
 }
