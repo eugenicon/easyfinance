@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, Type, ViewChild} from '@angular/core';
+import {AfterViewInit, ChangeDetectionStrategy, Component, Input, OnInit, Type, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
 import {Observable} from "rxjs";
 import {StringUtils} from "../../../core/utils/string-utils";
@@ -39,9 +39,10 @@ export class TableColumn<T> {
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
-  styleUrls: ['./table.component.css']
+  styleUrls: ['./table.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TableComponent<T> implements OnInit {
+export class TableComponent<T> implements OnInit, AfterViewInit {
   @Input() dataProvider: Observable<T[]>;
   @Input() columns: TableColumn<T>[] = [];
   @Input() addHandler?: () => {};
@@ -61,7 +62,15 @@ export class TableComponent<T> implements OnInit {
     this.dataSource.paginator = mp;
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
+
+  }
+
+  ngAfterViewInit(): void {
+    this.updateData();
+  }
+
+  private updateData() {
     this.isUpdating = true;
     this.dataProvider.subscribe(value => {
       this.dataSource.data = value;
