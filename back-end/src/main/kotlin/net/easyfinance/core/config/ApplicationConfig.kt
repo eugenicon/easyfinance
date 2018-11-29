@@ -1,5 +1,7 @@
 package net.easyfinance.core.config
 
+import net.easyfinance.core.data.model.User
+import net.easyfinance.core.data.repository.UserRepository
 import net.easyfinance.core.model.Category
 import net.easyfinance.core.model.Operation
 import net.easyfinance.core.model.TransactionType
@@ -8,6 +10,7 @@ import net.easyfinance.core.repository.OperationRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.security.crypto.password.PasswordEncoder
 import springfox.documentation.builders.PathSelectors
 import springfox.documentation.builders.RequestHandlerSelectors
 import springfox.documentation.spi.DocumentationType
@@ -44,5 +47,15 @@ open class ApplicationConfig {
             Operation(it, catRepo.findAll().random(), listOf("Novus","Metro","Jack Daniels","Party").random(), (10..1000L).random()) }
 
         opRepo.saveAll(opSource)
+    }
+
+    @Autowired
+    fun initUsers(userRepo: UserRepository, passwordEncoder: PasswordEncoder) {
+        val users = listOf(
+                User(1, "user", passwordEncoder.encode("12345")),
+                User(2, "other", passwordEncoder.encode("11111"))
+        )
+
+        userRepo.saveAll(users)
     }
 }
