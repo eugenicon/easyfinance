@@ -6,8 +6,10 @@ import net.easyfinance.core.data.repository.OperationRepository
 import org.springframework.stereotype.Service
 
 @Service
-class CategoryService(private val repository: CategoryRepository, private val operationRepository: OperationRepository) {
-    fun findAll(): MutableList<Category> = repository.findAll()
+class CategoryService(private val repository: CategoryRepository,
+                      private val operationRepository: OperationRepository) {
+
+    fun findAllByUserName(name: String): MutableList<Category> = repository.findAllByUserName(name)
 
     fun getById(id: Long) = repository.getOne(id)
 

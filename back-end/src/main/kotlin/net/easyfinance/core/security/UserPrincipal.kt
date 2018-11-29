@@ -10,7 +10,7 @@ class UserPrincipal(val user: User): UserDetails {
         return mutableListOf(SimpleGrantedAuthority("User"))
     }
 
-    override fun getUsername() = user.username
+    override fun getUsername() = user.name
 
     override fun getPassword() = user.password
 

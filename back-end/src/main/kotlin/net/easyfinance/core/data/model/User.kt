@@ -8,7 +8,7 @@ data class User(
         @GeneratedValue(strategy = GenerationType.AUTO)
         var id: Long = 0,
         @Column(nullable = false, unique = true)
-        val username: String = "",
+        val name: String = "",
         @Column(nullable = false)
         val password: String = ""
 )

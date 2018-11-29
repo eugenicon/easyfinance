@@ -5,6 +5,7 @@ import {SaveCategoryDialogComponent} from "../../components/save-category-dialog
 import {Category} from "../../category.model";
 import {BehaviorSubject} from "rxjs";
 import {ConfirmDialogComponent} from "../../../../shared/components/confirm-dialog/confirm-dialog.component";
+import {TableColumn} from "../../../../shared/components/table/table.component";
 
 @Component({
   selector: 'app-categories',
@@ -13,6 +14,7 @@ import {ConfirmDialogComponent} from "../../../../shared/components/confirm-dial
 })
 export class CategoriesComponent implements OnInit {
   data = new BehaviorSubject<Category[]>([]);
+  columns: TableColumn<Category>[] = [{name: "id"}, {name: "name"}, {name: "type"}];
 
   constructor(protected dataService: DataService, public dialog: MatDialog) {
   }

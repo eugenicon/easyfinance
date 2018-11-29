@@ -6,7 +6,8 @@ import org.springframework.stereotype.Service
 
 @Service
 class OperationService(private val repository: OperationRepository) {
-    fun findAll(): MutableList<Operation> = repository.findAll()
+
+    fun findAllByUserName(name: String): MutableList<Operation> = repository.findAllByUserName(name)
 
     fun getById(id: Long) = repository.getOne(id)
 

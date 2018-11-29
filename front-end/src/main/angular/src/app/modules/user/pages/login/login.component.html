@@ -7,7 +7,7 @@
 
       <mat-card-content>
         <mat-form-field>
-          <input matInput placeholder="Username" [(ngModel)]="user.username" type="text" name="username" required minlength="4" #username="ngModel">
+          <input matInput placeholder="Username" [(ngModel)]="user.name" type="text" name="name" required minlength="4" #username="ngModel">
         </mat-form-field>
         <app-validations [field]="'Username'" [control]="username"></app-validations>
 

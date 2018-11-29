@@ -30,33 +30,31 @@ open class ApplicationConfig {
             .build()
 
     @Autowired
-    fun initRepo(catRepo: CategoryRepository, opRepo: OperationRepository) {
-        val catSource = ArrayList(listOf(
-                Category(1L, "Food", TransactionType.EXPENDITURE),
-                Category(2L, "Transport", TransactionType.EXPENDITURE),
-                Category(3L, "Alcohol", TransactionType.EXPENDITURE),
-                Category(4L, "Party", TransactionType.EXPENDITURE),
-                Category(5L, "Salary", TransactionType.INCOME),
-                Category(6L, "Credit", TransactionType.INCOME),
-                Category(7L, "Gift", TransactionType.INCOME),
-                Category(8L, "Present", TransactionType.EXPENDITURE),
-                Category(9L, "Beer", TransactionType.EXPENDITURE)
-        ))
-        catRepo.saveAll(catSource)
-
-        val opSource = (1..2000L).map {
-            Operation(it, catRepo.findAll().random(), listOf("Novus","Metro","Jack Daniels","Party").random(), (10..1000L).random()) }
-
-        opRepo.saveAll(opSource)
-    }
-
-    @Autowired
-    fun initUsers(userRepo: UserRepository, passwordEncoder: PasswordEncoder) {
+    fun initRepo(catRepo: CategoryRepository, opRepo: OperationRepository, userRepo: UserRepository, passwordEncoder: PasswordEncoder) {
         val users = listOf(
                 User(1, "user", passwordEncoder.encode("12345")),
                 User(2, "other", passwordEncoder.encode("11111"))
         )
 
         userRepo.saveAll(users)
+
+        val catSource = ArrayList(listOf(
+                Category(1L, "Food", TransactionType.EXPENDITURE, users.random()),
+                Category(2L, "Transport", TransactionType.EXPENDITURE, users.random()),
+                Category(3L, "Alcohol", TransactionType.EXPENDITURE, users.random()),
+                Category(4L, "Party", TransactionType.EXPENDITURE, users.random()),
+                Category(5L, "Salary", TransactionType.INCOME, users.random()),
+                Category(6L, "Credit", TransactionType.INCOME, users.random()),
+                Category(7L, "Gift", TransactionType.INCOME, users.random()),
+                Category(8L, "Present", TransactionType.EXPENDITURE, users.random()),
+                Category(9L, "Beer", TransactionType.EXPENDITURE, users.random())
+        ))
+        catRepo.saveAll(catSource)
+
+        val opSource = (1..2000L).map {
+            val category = catRepo.findAll().random()
+            Operation(it, category, listOf("Novus","Metro","Jack Daniels","Party").random(), (10..1000L).random(), category.user) }
+
+        opRepo.saveAll(opSource)
     }
 }

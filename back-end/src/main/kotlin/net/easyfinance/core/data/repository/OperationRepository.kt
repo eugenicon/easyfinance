@@ -10,4 +10,6 @@ import org.springframework.transaction.annotation.Transactional
 interface OperationRepository: JpaRepository<Operation, Long> {
     @Transactional
     fun deleteAllByCategory(category: Category)
+
+    fun findAllByUserName(name: String): MutableList<Operation>
 }

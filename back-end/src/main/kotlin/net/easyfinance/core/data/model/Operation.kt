@@ -9,5 +9,7 @@ data class Operation(
         var id: Long = 0,
         @ManyToOne val category: Category? = null,
         val description: String = "",
-        var sum: Long = 0
+        var sum: Long = 0,
+        @ManyToOne
+        var user: User? = null
 )

@@ -17,7 +17,7 @@ export class AuthenticationService {
 
   isUserAuthenticated(credentials = undefined) {
     const headers = new HttpHeaders(credentials ? {
-      authorization: 'Basic ' + btoa(credentials.username + ':' + credentials.password)
+      authorization: 'Basic ' + btoa(credentials.name + ':' + credentials.password)
     } : {});
 
     let observable = this.http.get<boolean>('api/user/authenticated', {headers: headers});

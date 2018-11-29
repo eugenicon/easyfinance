@@ -1,9 +1,6 @@
 package net.easyfinance.core.data.model
 
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
+import javax.persistence.*
 
 @Entity
 data class Category(
@@ -11,4 +8,7 @@ data class Category(
         @GeneratedValue(strategy = GenerationType.AUTO)
         var id: Long = 0,
         val name: String = "",
-        val type: TransactionType = TransactionType.EXPENDITURE)
+        val type: TransactionType = TransactionType.EXPENDITURE,
+        @ManyToOne
+        var user: User? = null
+)
