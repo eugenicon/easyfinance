@@ -1,8 +1,8 @@
 package net.easyfinance.core.controller.rest
 
-import net.easyfinance.core.model.Category
-import net.easyfinance.core.model.TransactionType
-import net.easyfinance.core.service.CategoryService
+import net.easyfinance.core.data.model.Category
+import net.easyfinance.core.data.model.TransactionType
+import net.easyfinance.core.data.service.CategoryService
 import org.springframework.web.bind.annotation.*
 
 @RestController

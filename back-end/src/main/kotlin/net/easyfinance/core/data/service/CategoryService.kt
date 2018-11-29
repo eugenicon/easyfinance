@@ -1,8 +1,8 @@
-package net.easyfinance.core.service
+package net.easyfinance.core.data.service
 
-import net.easyfinance.core.model.Category
-import net.easyfinance.core.repository.CategoryRepository
-import net.easyfinance.core.repository.OperationRepository
+import net.easyfinance.core.data.model.Category
+import net.easyfinance.core.data.repository.CategoryRepository
+import net.easyfinance.core.data.repository.OperationRepository
 import org.springframework.stereotype.Service
 
 @Service

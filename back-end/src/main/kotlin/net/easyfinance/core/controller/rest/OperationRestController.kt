@@ -1,7 +1,7 @@
 package net.easyfinance.core.controller.rest
 
-import net.easyfinance.core.model.Operation
-import net.easyfinance.core.service.OperationService
+import net.easyfinance.core.data.model.Operation
+import net.easyfinance.core.data.service.OperationService
 import org.springframework.web.bind.annotation.*
 
 @RestController

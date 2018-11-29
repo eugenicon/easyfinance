@@ -1,7 +1,7 @@
-package net.easyfinance.core.repository
+package net.easyfinance.core.data.repository
 
-import net.easyfinance.core.model.Category
-import net.easyfinance.core.model.Operation
+import net.easyfinance.core.data.model.Category
+import net.easyfinance.core.data.model.Operation
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 import org.springframework.transaction.annotation.Transactional

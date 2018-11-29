@@ -1,12 +1,13 @@
 package net.easyfinance.core.config
 
+import net.easyfinance.core.data.model.Category
+import net.easyfinance.core.data.model.Operation
+import net.easyfinance.core.data.model.TransactionType
 import net.easyfinance.core.data.model.User
 import net.easyfinance.core.data.repository.UserRepository
-import net.easyfinance.core.model.Category
-import net.easyfinance.core.model.Operation
-import net.easyfinance.core.model.TransactionType
-import net.easyfinance.core.repository.CategoryRepository
-import net.easyfinance.core.repository.OperationRepository
+
+import net.easyfinance.core.data.repository.CategoryRepository
+import net.easyfinance.core.data.repository.OperationRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

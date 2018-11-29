@@ -1,4 +1,4 @@
-package net.easyfinance.core.model
+package net.easyfinance.core.data.model
 
 import javax.persistence.*
 
