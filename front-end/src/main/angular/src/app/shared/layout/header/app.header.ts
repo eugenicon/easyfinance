@@ -3,10 +3,11 @@ import {AuthenticationService} from '../../../core/services/authentication.servi
 
 @Component({
   selector: 'layout-header',
-  templateUrl: './app.header.html'
+  templateUrl: './app.header.html',
+  styleUrls: ['./app.header.css']
 })
 export class AppHeader {
-  constructor(private auth: AuthenticationService) { }
+  constructor(public auth: AuthenticationService) { }
 
   logout() {
     this.auth.logout('/user/login');

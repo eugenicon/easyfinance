@@ -1,7 +1,7 @@
 <div >
   <mat-toolbar color="primary">
     <mat-toolbar-row>
-      <button mat-button routerLinkActive="active" routerLink="home">Home</button>
+      <button mat-button routerLinkActive="active" routerLink="home"><mat-icon style="margin: 0 10px 5px 0;">home</mat-icon>Home</button>
       <ng-container *showIfAuth="true" >
         <button mat-button routerLink="categories" >Categories</button>
         <button mat-button routerLink="operations" >Operations</button>
@@ -9,8 +9,24 @@
 
       <span class="spacer"></span>
 
-      <button *showIfAuth="false" mat-button routerLinkActive="active" routerLink="/user/login">Login</button>
-      <button *showIfAuth="true" mat-button (click)="logout()" >Logout</button>
+      <button *showIfAuth="false" mat-button routerLinkActive="active" routerLink="/user/login">
+        Login
+        <mat-icon>input</mat-icon>
+      </button>
+
+      <ng-container *showIfAuth="true" >
+        <button mat-button [matMenuTriggerFor]="userMenu">
+          {{auth.userName| async}}
+          <mat-icon>reorder</mat-icon>
+        </button>
+
+        <mat-menu #userMenu="matMenu">
+          <button  mat-menu-item (click)="logout()" >
+            Logout
+            <mat-icon>logout</mat-icon>
+          </button>
+        </mat-menu>
+      </ng-container>
     </mat-toolbar-row>
   </mat-toolbar>
 </div>

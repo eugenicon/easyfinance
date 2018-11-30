@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Router} from "@angular/router";
-import {BehaviorSubject} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 import {map} from "rxjs/operators";
 
 @Injectable({
@@ -11,29 +11,33 @@ export class AuthenticationService {
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
   public isAuthenticated = this.isAuthenticatedSubject.asObservable();
 
+  private userNameSubject = new BehaviorSubject<string>('');
+  public userName = this.userNameSubject.asObservable();
+
   constructor(private http: HttpClient, private router: Router) {
     this.login();
   }
 
-  isUserAuthenticated(credentials = undefined) {
+  isUserAuthenticated(credentials = undefined): Observable<boolean> {
     const headers = new HttpHeaders(credentials ? {
       authorization: 'Basic ' + btoa(credentials.name + ':' + credentials.password)
     } : {});
 
-    let observable = this.http.get<boolean>('api/user/authenticated', {headers: headers});
-    return observable.pipe(map(authenticated => {
+    let observable = this.http.get('api/user/authenticated', {headers: headers});
+    return observable.pipe(map(authenticatedUser => {
       let wasAuthenticated = this.isAuthenticatedSubject.getValue();
-      this.isAuthenticatedSubject.next(authenticated);
-      if (wasAuthenticated && !authenticated) {
+      let isAuthenticated = authenticatedUser ? authenticatedUser['name'].length > 0 : false;
+      this.isAuthenticatedSubject.next(isAuthenticated);
+      this.userNameSubject.next(isAuthenticated ? authenticatedUser['name'] : '');
+      if (wasAuthenticated && !isAuthenticated) {
         this.router.navigateByUrl('user/login');
       }
-      return authenticated
+      return isAuthenticated
     }));
   }
 
   login(credentials = undefined, navigateAfter: string = '/') {
-    let observable = this.isUserAuthenticated(credentials);
-    observable.subscribe(authenticated => {
+    this.isUserAuthenticated(credentials).subscribe(isAuthenticated => {
       this.router.navigateByUrl(navigateAfter);
     });
   }

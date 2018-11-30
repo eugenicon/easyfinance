@@ -4,7 +4,7 @@ import {
   MatButtonModule,
   MatCardModule, MatDialogModule,
   MatFormFieldModule, MatIconModule,
-  MatInputModule, MatOptionModule,
+  MatInputModule, MatMenuModule, MatOptionModule,
   MatPaginatorModule, MatProgressSpinnerModule, MatSelectModule,
   MatSortModule,
   MatTableModule,
@@ -50,7 +50,8 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
     FlexLayoutModule,
 
     MatIconModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatMenuModule
   ],
   declarations: [
     ValidationsComponent,
