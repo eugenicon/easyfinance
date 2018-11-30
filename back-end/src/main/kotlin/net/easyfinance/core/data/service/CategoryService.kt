@@ -2,12 +2,10 @@ package net.easyfinance.core.data.service
 
 import net.easyfinance.core.data.model.Category
 import net.easyfinance.core.data.repository.CategoryRepository
-import net.easyfinance.core.data.repository.OperationRepository
 import org.springframework.stereotype.Service
 
 @Service
-class CategoryService(private val repository: CategoryRepository,
-                      private val operationRepository: OperationRepository) {
+class CategoryService(private val repository: CategoryRepository) {
 
     fun findAllByUserName(name: String): MutableList<Category> = repository.findAllByUserName(name)
 
@@ -16,7 +14,6 @@ class CategoryService(private val repository: CategoryRepository,
     fun save(entity: Category) = repository.save(entity)
 
     fun delete(entity: Category) {
-        operationRepository.deleteAllByCategory(entity)
         repository.delete(entity)
     }
 }

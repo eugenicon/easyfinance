@@ -3,14 +3,13 @@ package net.easyfinance.core.data.model
 import javax.persistence.*
 
 @Entity
-data class Operation(
+data class Budget(
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
         var id: Long = 0,
         @ManyToOne
         val category: Category? = null,
-        val description: String = "",
-        var sum: Long = 0,
         @ManyToOne
-        var user: User? = null
-)
+        var user: User? = null,
+        var sum: Long = 0
+        )
