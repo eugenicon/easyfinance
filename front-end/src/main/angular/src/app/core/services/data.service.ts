@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Category} from "../../modules/categories/category.model";
 import {Operation} from "../../modules/operations/operation.model";
+import {Budget} from "../../modules/budgets/budgets.model";
 
 @Injectable({
   providedIn: 'root'
@@ -53,5 +54,23 @@ export class DataService {
       body: data
     };
     return this.http.delete('/api/operations/delete', httpOptions);
+  }
+
+  saveBudget(data: Budget): Observable<any> {
+    return this.http.post('/api/budgets/save', data);
+  }
+
+  deleteBudget(data: Budget): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      }),
+      body: data
+    };
+    return this.http.delete('/api/budgets/delete', httpOptions);
+  }
+
+  getBudgets(): Observable<Budget[]> {
+    return this.http.get<Budget[]>('/api/budgets/all' );
   }
 }
