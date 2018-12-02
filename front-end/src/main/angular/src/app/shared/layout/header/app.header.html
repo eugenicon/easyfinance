@@ -22,9 +22,19 @@
         </button>
 
         <mat-menu #userMenu="matMenu">
+          <button  mat-menu-item  externalUrl="_blank:/swagger-ui.html">
+            <mat-icon>send</mat-icon>
+            Swagger
+          </button>
+
+          <button  mat-menu-item  externalUrl="_blank:/actuator/health">
+            <mat-icon>healing</mat-icon>
+            Health
+          </button>
+
           <button  mat-menu-item (click)="logout()" >
-            Logout
             <mat-icon>logout</mat-icon>
+            Logout
           </button>
         </mat-menu>
       </ng-container>
