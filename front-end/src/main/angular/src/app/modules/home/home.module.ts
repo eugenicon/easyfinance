@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {LandingPageComponent} from "./pages/landing-page/landing-page.component";
 import {HomeRoutesModule} from "./home.route";
 import {SharedModule} from "../../shared/shared.module";
+import { BudgetChartComponent } from './components/budget-chart/budget-chart.component';
 
 @NgModule({
   imports: [
@@ -9,7 +10,8 @@ import {SharedModule} from "../../shared/shared.module";
     SharedModule
   ],
   declarations: [
-    LandingPageComponent
+    LandingPageComponent,
+    BudgetChartComponent
   ]
 })
 export class HomeModule { }
