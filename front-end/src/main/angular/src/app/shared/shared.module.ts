@@ -27,6 +27,8 @@ import {TableCellDirective} from './directives/table-cell/table-cell.directive';
 import {LayoutModule} from "@angular/cdk/layout";
 import { TableCellActionComponent } from './components/table-cell-action/table-cell-action.component';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { BarChartComponent } from './components/bar-chart/bar-chart.component';
+import {ChartsModule} from "ng2-charts";
 
 @NgModule({
   imports: [
@@ -51,7 +53,9 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
 
     MatIconModule,
     MatProgressSpinnerModule,
-    MatMenuModule
+    MatMenuModule,
+
+    ChartsModule
   ],
   declarations: [
     ValidationsComponent,
@@ -63,7 +67,8 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
     TableCellLinkComponent,
     TableCellDirective,
     TableCellActionComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    BarChartComponent
   ],
   exports: [
     CommonModule,
@@ -76,7 +81,7 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
 
     AppHeader,
     AppFooter,
-
+    ShowAuthenticatedDirective,
 
     MatCardModule,
     MatFormFieldModule,
@@ -86,11 +91,13 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
     MatDialogModule,
     MatOptionModule,
     MatSelectModule,
+    BarChartComponent
   ],
   entryComponents: [
     TableCellTextComponent,
     TableCellLinkComponent,
     TableCellActionComponent,
+    ConfirmDialogComponent
   ],
 
    providers: [ObjToKeysPipe, {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: true, disableClose: true}}],

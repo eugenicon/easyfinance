@@ -1,5 +1,6 @@
 package net.easyfinance.core.data.model
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import javax.persistence.*
 
 @Entity
@@ -11,6 +12,8 @@ data class Operation(
         val category: Category? = null,
         val description: String = "",
         var sum: Long = 0,
+
+        @JsonIgnore
         @ManyToOne
         var user: User? = null
 )

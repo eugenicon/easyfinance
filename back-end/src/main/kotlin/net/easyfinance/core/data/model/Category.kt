@@ -11,6 +11,8 @@ data class Category(
         var id: Long = 0,
         val name: String = "",
         val type: TransactionType = TransactionType.EXPENDITURE,
+
+        @JsonIgnore
         @ManyToOne
         var user: User? = null
 ) {

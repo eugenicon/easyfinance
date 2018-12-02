@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {Category} from "../../modules/categories/category.model";
 import {Operation} from "../../modules/operations/operation.model";
 import {Budget} from "../../modules/budgets/budgets.model";
+import {ReportData} from "../../modules/home/home.model";
 
 @Injectable({
   providedIn: 'root'
@@ -72,5 +73,9 @@ export class DataService {
 
   getBudgets(): Observable<Budget[]> {
     return this.http.get<Budget[]>('/api/budgets/all' );
+  }
+
+  getBudgetsReport(): Observable<ReportData[]> {
+    return this.http.get<ReportData[]>('/api/reports/budget-progress' );
   }
 }

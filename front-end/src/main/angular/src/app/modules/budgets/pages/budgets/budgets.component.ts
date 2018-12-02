@@ -9,6 +9,7 @@ import {ActionCell} from "../../../../shared/components/table-cell-action/table-
 import {Category} from "../../../categories/category.model";
 import {SaveCategoryDialogComponent} from "../../../categories/components/save-category-dialog/save-category-dialog.component";
 import {SaveOperationDialogComponent} from "../../../operations/components/save-operation-dialog/save-operation-dialog.component";
+import {SaveBudgetDialogComponent} from "../../components/save-budget-dialog/save-budget-dialog.component";
 
 @Component({
   selector: 'app-budgets',
@@ -34,7 +35,7 @@ export class BudgetsComponent implements OnInit {
   }
 
   openSaveDialog(data: Budget = new Budget()) {
-    this.openDialog(SaveOperationDialogComponent, data);
+    this.openDialog(SaveBudgetDialogComponent, data);
   }
 
   openDeleteDialog(data: Budget) {
