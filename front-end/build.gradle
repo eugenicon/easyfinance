@@ -4,6 +4,8 @@ plugins {
 
 apply plugin: 'com.moowork.node'
 
+def angularDistDir = "$buildDir/dist"
+
 node {
     version = '10.13.0'
     npmVersion = '6.4.1'
@@ -12,6 +14,8 @@ node {
 }
 
 task npmBuild(type: NpmTask) {
+    outputs.dir (angularDistDir)
+
     args = ['run', 'build']
     group = "node"
     dependsOn("npmInstall")
@@ -33,6 +37,6 @@ jar {
     dependsOn('npmBuild')
 
     into 'resources', {
-        from "${buildDir}/dist"
+        from angularDistDir
     }
 }

@@ -1,6 +1,8 @@
 package net.easyfinance.core.data.model
 
-import com.fasterxml.jackson.annotation.JsonIgnore
+import net.easyfinance.core.util.monthEnd
+import net.easyfinance.core.util.monthStart
+import java.util.*
 import javax.persistence.*
 
 @Entity
@@ -8,11 +10,15 @@ data class Budget(
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
         var id: Long = 0,
-        @ManyToOne
-        val category: Category? = null,
 
-        @JsonIgnore
+        @ManyToOne
+        var category: Category? = null,
+
         @ManyToOne
         var user: User? = null,
-        var sum: Long = 0
-        )
+
+        var sum: Long = 0,
+
+        var dateStart: Date = Date().monthStart(),
+        var dateEnd: Date = Date().monthEnd()
+)

@@ -1,6 +1,7 @@
 package net.easyfinance.core.controller.rest
 
-import net.easyfinance.core.data.model.Operation
+import net.easyfinance.core.controller.dto.OperationDto
+import net.easyfinance.core.controller.dto.asDto
 import net.easyfinance.core.data.service.OperationService
 import net.easyfinance.core.security.getUser
 import org.springframework.security.core.Authentication
@@ -11,16 +12,16 @@ import org.springframework.web.bind.annotation.*
 class OperationRestController(private val service: OperationService) {
 
     @GetMapping("/all")
-    fun getAll(auth: Authentication) = service.findAllByUserName(auth.name)
+    fun getAll(auth: Authentication) = service.findAllByUserName(auth.name).map { it.asDto() }
 
     @PostMapping("/save")
-    fun save(@RequestBody operation: Operation, auth: Authentication) {
-        operation.user = auth.getUser()
-        service.save(operation)
+    fun save(@RequestBody dto: OperationDto, auth: Authentication) {
+        val entity = dto.asEntity().apply { user = auth.getUser() }
+        service.save(entity)
     }
 
     @DeleteMapping("/delete")
-    fun delete(@RequestBody operation: Operation) {
-        service.delete(operation)
+    fun delete(@RequestBody dto: OperationDto) {
+        service.delete(dto.asEntity())
     }
 }

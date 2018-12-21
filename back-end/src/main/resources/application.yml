@@ -2,9 +2,12 @@ view:
   forward-to-frontend-url: forward:/index.html
   frontend-managed-urls:
     /,
+    /home,
     /user,
     /user/**,
-    /categories
+    /categories,
+    /operations,
+    /budgets
 
 logging.level:
   ROOT: info
@@ -18,12 +21,15 @@ spring.security:
 application:
   security:
     permit:
-      /,
+      /, /home, /user/login,
+
       /api/user/authenticated, /test,
 
       /actuator/**,
 
-      /v2/api-docs, /configuration/ui, /swagger-resources, /configuration/security, /swagger-ui.html, /webjars/**"
+      /configuration/ui, /configuration/security,
+
+      /v2/api-docs, /swagger-resources/**, /swagger-ui.html, /webjars/**"
 
     resources:
       /**/*.js, /**/*.css,

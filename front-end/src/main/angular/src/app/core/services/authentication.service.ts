@@ -14,9 +14,7 @@ export class AuthenticationService {
   private userNameSubject = new BehaviorSubject<string>('');
   public userName = this.userNameSubject.asObservable();
 
-  constructor(private http: HttpClient, private router: Router) {
-    this.login();
-  }
+  constructor(private http: HttpClient, private router: Router) { }
 
   isUserAuthenticated(credentials = undefined): Observable<boolean> {
     const headers = new HttpHeaders(credentials ? {
@@ -38,7 +36,9 @@ export class AuthenticationService {
 
   login(credentials = undefined, navigateAfter: string = '/') {
     this.isUserAuthenticated(credentials).subscribe(isAuthenticated => {
-      this.router.navigateByUrl(navigateAfter);
+      if (isAuthenticated) {
+        this.router.navigateByUrl(navigateAfter);
+      }
     });
   }
 
