@@ -8,7 +8,6 @@ import {TableColumn} from "../../../../shared/components/table/table.component";
 import {ActionCell} from "../../../../shared/components/table-cell-action/table-cell-action.component";
 import {Category} from "../../../categories/category.model";
 import {SaveCategoryDialogComponent} from "../../../categories/components/save-category-dialog/save-category-dialog.component";
-import {SaveOperationDialogComponent} from "../../../operations/components/save-operation-dialog/save-operation-dialog.component";
 import {SaveBudgetDialogComponent} from "../../components/save-budget-dialog/save-budget-dialog.component";
 
 @Component({
@@ -42,7 +41,7 @@ export class BudgetsComponent implements OnInit {
     const dialog = this.dialog.open(ConfirmDialogComponent, {width: '300px', data: data});
 
     dialog.afterClosed().subscribe(result => {
-      if (result) this.dataService.deleteBudget(data).subscribe(value => this.updateData())
+      if (result) this.dataService.deleteBudget(data).subscribe(() => this.updateData())
     });
   }
 
