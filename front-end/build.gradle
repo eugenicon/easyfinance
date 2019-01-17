@@ -1,42 +1,59 @@
-plugins {
-    id "com.moowork.node"
-}
-
 apply plugin: 'com.moowork.node'
 
-def angularDistDir = "$buildDir/dist"
+description = 'Angular Front End'
+
+def angularSrcPath = "src/main/angular"
+def angularDistPath = "$angularSrcPath/dist"
+def nodeModulesPath = "$angularSrcPath/node_modules"
 
 node {
     version = '10.13.0'
     npmVersion = '6.4.1'
     download = true
-    nodeModulesDir = file("${project.projectDir}/src/main/angular")
+    nodeModulesDir = file(nodeModulesPath)
+}
+
+npmInstall { 
+    workingDir = file(angularSrcPath)
+    outputs.dir nodeModulesPath 
 }
 
 task npmBuild(type: NpmTask) {
-    outputs.dir (angularDistDir)
-
+    group = 'node'
+    dependsOn npmInstall
+    outputs.dir angularDistPath
     args = ['run', 'build']
-    group = "node"
-    dependsOn("npmInstall")
 }
 
 task npmStart(type: NpmTask) {
+    group = 'node'
+    dependsOn npmInstall
     args = ['start']
-    group = "node"
-    dependsOn("npmInstall")
 }
 
 task npmStartProxy(type: NpmTask) {
+    group = 'node'
+    dependsOn npmInstall
     args = ['run-script', 'start-proxy']
-    group = "node"
-    dependsOn("npmInstall")
 }
 
-jar {
-    dependsOn('npmBuild')
-
-    into 'resources', {
-        from angularDistDir
-    }
+task distClean {
+    group = 'node'
+    dependsOn clean
+    doLast { delete angularDistPath }
 }
+
+task nodeClean {
+    group = 'node'
+    dependsOn clean
+    doLast { delete nodeModulesPath, '.gradle' }
+}
+
+task npmClean {
+    group = 'node'
+    dependsOn nodeClean, distClean
+}
+
+sourceSets.main.resources { srcDirs += angularDistPath }
+
+jar { dependsOn npmBuild }

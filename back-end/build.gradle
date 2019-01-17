@@ -1,6 +1,7 @@
 description = ''
 
 dependencies {
+    compile project (':front-end')
     compile 'org.springframework.boot:spring-boot-starter-web'
     compile 'org.springframework.boot:spring-boot-starter-security'
     compile 'org.springframework.boot:spring-boot-starter-data-jpa'
@@ -9,10 +10,22 @@ dependencies {
 
     compile 'org.springframework.boot:spring-boot-starter-actuator'
 
-    compile 'io.springfox:springfox-swagger2:2.9.2'
-    compile 'io.springfox:springfox-swagger-ui:2.9.2'
+    compile 'io.springfox:springfox-swagger2'
+    compile 'io.springfox:springfox-swagger-ui'
 
-    compile 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
+    compile 'org.jetbrains.kotlin:kotlin-stdlib'
     compile 'org.jetbrains.kotlin:kotlin-reflect'
     testCompile 'org.jetbrains.kotlin:kotlin-test'
+}
+
+apply plugin: 'application'
+apply plugin: 'org.springframework.boot'
+
+mainClassName = 'net.easyfinance.core.ApplicationKt'
+
+jar { enabled = true }
+
+bootJar {
+    baseName = rootProject.name
+    classifier = 'boot'
 }

@@ -1,67 +1,41 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.3.11' apply false
+    id 'org.springframework.boot' version '2.1.1.RELEASE' apply false
+    id 'io.spring.dependency-management' version '1.0.6.RELEASE'
+    id "com.moowork.node" version '1.2.0' apply false
+}
+
 group = 'easy.finance.net'
 version = '1.0-SNAPSHOT'
 
-buildscript {
-    ext {
-        javaVersion = '1.8'
-        kotlinVersion = '1.3.0'
-        springBootVersion = '2.1.0.RELEASE'
-
-        springfoxVersion = '2.9.2'
-
-        mooworkVersion = '1.2.0'
-        dependencyManagementVersion = '1.0.6.RELEASE'
-    }
-
-    repositories {
-        jcenter()
-        maven { url "https://plugins.gradle.org/m2/" }
-        maven { url 'https://repo.spring.io/plugins-snapshot' }
-    }
-
-    dependencies {
-        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}"
-        classpath "org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}"
-        classpath "com.moowork.gradle:gradle-node-plugin:${mooworkVersion}"
-        classpath "io.spring.gradle:dependency-management-plugin:${dependencyManagementVersion}"
-    }
-}
-
-configure(allprojects - project(':front-end')) {
+allprojects {
+    apply plugin: 'java'
     apply plugin: 'kotlin'
-    apply plugin: 'org.springframework.boot'
+    apply plugin: 'maven'
     apply plugin: 'io.spring.dependency-management'
+
+    compileKotlin {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+        kotlinOptions { jvmTarget = JavaVersion.VERSION_1_8 }
+    }
+
+    jar { enabled = true }
+
+    dependencyManagement {
+        def springfoxVersion = '2.9.2'
+
+        imports {
+            mavenBom 'org.springframework.boot:spring-boot-dependencies:2.1.1.RELEASE'
+        }
+
+        dependencies {
+            dependency "io.springfox:springfox-swagger2:$springfoxVersion"
+            dependency "io.springfox:springfox-swagger-ui:$springfoxVersion"
+        }
+    }
 
     repositories {
         mavenCentral()
     }
-}
-
-def allVersion = version
-allprojects {
-    apply plugin: 'java'
-    version = allVersion
-
-    jar { enabled = true }
-}
-
-apply plugin: 'io.spring.dependency-management'
-dependencyManagement {
-    dependencies {
-        dependency "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}"
-        dependency "org.jetbrains.kotlin:kotlin-test:${kotlinVersion}"
-        dependency "org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}"
-
-        dependency "io.springfox:springfox-swagger2:${springfoxVersion}"
-        dependency "io.springfox:springfox-swagger-ui:${springfoxVersion}"
-    }
-}
-
-apply plugin: 'application'
-mainClassName = 'net.easyfinance.core.ApplicationKt'
-
-dependencies {
-    compile project(':back-end')
-    compile project(':front-end')
 }
