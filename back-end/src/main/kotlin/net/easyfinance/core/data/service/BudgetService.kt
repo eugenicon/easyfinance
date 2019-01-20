@@ -6,9 +6,9 @@ import net.easyfinance.core.data.repository.BudgetRepository
 import org.springframework.stereotype.Service
 
 @Service
-class BudgetService(private val repository: BudgetRepository) {
+class BudgetService(private val repository: BudgetRepository, private val userService: UserService) {
 
-    fun findAllByUser(user: User): MutableList<Budget> = repository.findAllByUserOrUserGroupAndUserGroupNotNull(user, user.group)
+    fun findAllByUser(user: User): MutableList<Budget> = repository.findAllByUserIn(userService.findRelated(user))
 
     fun getById(id: Long) = repository.getOne(id)
 

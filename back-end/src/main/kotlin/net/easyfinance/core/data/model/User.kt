@@ -14,9 +14,6 @@ data class User(
         @Column(nullable = false)
         var password: String = "",
 
-        @ManyToOne
-        var group: UserGroup? = null,
-
         @Column
         var firstName: String = "",
 

@@ -6,9 +6,9 @@ import net.easyfinance.core.data.repository.AccountRepository
 import org.springframework.stereotype.Service
 
 @Service
-class AccountService(private val repository: AccountRepository) {
+class AccountService(private val repository: AccountRepository, private val userService: UserService) {
 
-    fun findAllByUser(user: User): MutableList<Account> = repository.findAllByUserOrUserGroupAndUserGroupNotNull(user, user.group)
+    fun findAllByUser(user: User): MutableList<Account> = repository.findAllByUserIn(userService.findRelated(user))
 
     fun getById(id: Long) = repository.getOne(id)
 
