@@ -2,18 +2,16 @@ package net.easyfinance.core.data.model
 
 import javax.persistence.*
 
+
 @Entity
-data class User(
+data class UserGroup(
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
         var id: Long = 0,
 
-        @Column(nullable = false, unique = true)
+        @Column(nullable = false)
         val name: String = "",
 
-        @Column(nullable = false)
-        var password: String = "",
-
-        @ManyToOne
-        var group: UserGroup? = null
+        @OneToMany(mappedBy = "group")
+        var users: MutableList<User> = ArrayList()
 )

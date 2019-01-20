@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*
 class OperationRestController(private val service: OperationService) {
 
     @GetMapping("/all")
-    fun getAll(auth: Authentication) = service.findAllByUserName(auth.name).map { it.asDto() }
+    fun getAll(auth: Authentication) = service.findAllByUser(auth.getUser()).map { it.asDto() }
 
     @PostMapping("/save")
     fun save(@RequestBody dto: OperationDto, auth: Authentication) {

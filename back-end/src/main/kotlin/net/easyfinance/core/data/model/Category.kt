@@ -13,7 +13,7 @@ data class Category(
 
         val type: TransactionType = TransactionType.EXPENDITURE,
 
-        @ManyToOne
+        @ManyToOne(fetch = FetchType.LAZY)
         var user: User? = null
 ) {
     @OneToMany(cascade = [CascadeType.REMOVE], mappedBy = "category", orphanRemoval = true, fetch = FetchType.LAZY)

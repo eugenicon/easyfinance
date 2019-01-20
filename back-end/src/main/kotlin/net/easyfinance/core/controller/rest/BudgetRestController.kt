@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*
 class BudgetRestController(private val service: BudgetService) {
 
     @GetMapping("/all")
-    fun getAll(auth: Authentication) = service.findAllByUserName(auth.name).map { it.asDto() }
+    fun getAll(auth: Authentication) = service.findAllByUser(auth.getUser()).map { it.asDto() }
 
     @PostMapping("/save")
     fun save(@RequestBody dto: BudgetDto, auth: Authentication) {

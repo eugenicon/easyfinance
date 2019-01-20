@@ -16,7 +16,7 @@ data class Operation(
 
         var sum: Long = 0,
 
-        @ManyToOne
+        @ManyToOne(fetch = FetchType.LAZY)
         var user: User? = null,
 
         var date: Date = Date()

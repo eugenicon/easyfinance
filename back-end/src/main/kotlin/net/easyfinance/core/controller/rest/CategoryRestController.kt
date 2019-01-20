@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*
 class CategoryRestController(private val service: CategoryService) {
 
     @GetMapping("/all")
-    fun getAll(auth: Authentication) = service.findAllByUserName(auth.name).map { it.asDto() }
+    fun getAll(auth: Authentication) = service.findAllByUser(auth.getUser()).map { it.asDto() }
 
     @GetMapping("/types")
     fun getTypes() = TransactionType.values()

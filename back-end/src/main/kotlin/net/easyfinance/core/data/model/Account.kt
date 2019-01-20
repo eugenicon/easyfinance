@@ -10,7 +10,7 @@ data class Account(
 
         val name: String = "",
 
-        @ManyToOne
+        @ManyToOne(fetch = FetchType.LAZY)
         var user: User? = null,
 
         var sum: Long = 0)

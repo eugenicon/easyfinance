@@ -14,7 +14,7 @@ data class Budget(
         @ManyToOne
         var category: Category? = null,
 
-        @ManyToOne
+        @ManyToOne(fetch = FetchType.LAZY)
         var user: User? = null,
 
         var sum: Long = 0,
