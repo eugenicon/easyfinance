@@ -1,1 +1,14 @@
-<app-user-settings></app-user-settings>
+
+<mat-sidenav-container class="example-container">
+  <mat-sidenav mode="side" opened disableClose>
+    <mat-nav-list>
+      <a mat-list-item (click)="selectedItem='details'">Details</a>
+      <a mat-list-item (click)="selectedItem='password'">Change Password</a>
+      <a mat-list-item (click)="selectedItem='group'">Group</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <app-user-settings *ngIf="selectedItem=='details'"></app-user-settings>
+    <app-user-group *ngIf="selectedItem=='group'"></app-user-group>
+  </mat-sidenav-content>
+</mat-sidenav-container>

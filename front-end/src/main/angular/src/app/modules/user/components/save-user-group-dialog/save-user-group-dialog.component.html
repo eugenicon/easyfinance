@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>{{data.id == 0 ? 'New' : 'Edit'}} User Group</h1>
+
+<form #form="ngForm" mat-dialog-content>
+  <mat-form-field>
+    <input matInput name="name" [(ngModel)]="data.name" placeholder="Name" #name="ngModel" required>
+  </mat-form-field>
+  <app-validations [field]="'Name'" [control]="name"></app-validations>
+
+  <div>
+    <button mat-button (click)="onSave(form)">Save</button>
+    <button mat-button (click)="onCancel()">Cancel</button>
+  </div>
+</form>

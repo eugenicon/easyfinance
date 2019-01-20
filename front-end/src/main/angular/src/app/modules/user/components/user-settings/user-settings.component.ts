@@ -21,6 +21,9 @@ export class UserSettingsComponent implements OnInit {
   ngOnInit() {
   }
 
+  editGroup() {
+
+  }
 
   save(form: NgForm) {
     if (!form.valid) {

@@ -113,6 +113,7 @@ const routes: Routes = [
     MatDialogModule,
     MatOptionModule,
     MatSelectModule,
+    MatIconModule,
     BarChartComponent
   ],
   entryComponents: [

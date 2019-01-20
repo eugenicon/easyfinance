@@ -1,0 +1,12 @@
+<mat-tab-group mat-stretch-tabs>
+  <mat-tab label="Manage">
+     <app-table [dataProvider]="data.asObservable()" [columns]="columns" [addHandler]="openSaveDialog.bind(this)" [editHandler]="openSaveDialog.bind(this)" [deleteHandler]="openDeleteDialog.bind(this)"></app-table>
+  </mat-tab>
+  <mat-tab label="Join">
+    <mat-form-field>
+      <input matInput placeholder="Token" ngModel type="text" name="token" required minlength="4" #token="ngModel">
+    </mat-form-field>
+    <app-validations [field]="'Token'" [control]="token"></app-validations>
+    <button mat-raised-button (click)="joinGroup(token.value)" color="primary">Join</button>
+  </mat-tab>
+</mat-tab-group>

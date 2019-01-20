@@ -5,6 +5,7 @@ import {Category} from "../../modules/categories/category.model";
 import {Operation} from "../../modules/operations/operation.model";
 import {Budget} from "../../modules/budgets/budgets.model";
 import {ReportData} from "../../modules/home/home.model";
+import {UserGroup} from "../../modules/user/user.model";
 
 @Injectable({
   providedIn: 'root'
@@ -12,10 +13,6 @@ import {ReportData} from "../../modules/home/home.model";
 export class DataService {
 
   constructor(private http: HttpClient) { }
-
-  getEmpty(): Observable<any[]> {
-    return new Observable<any[]>();
-  }
 
   getCategories(): Observable<Category[]> {
     return this.http.get<Category[]>('/api/categories/all' );
@@ -77,5 +74,21 @@ export class DataService {
 
   getBudgetsReport(): Observable<ReportData[]> {
     return this.http.get<ReportData[]>('/api/reports/budget-progress' );
+  }
+
+  getUserGroups(): Observable<UserGroup[]> {
+    return this.http.get<UserGroup[]>('/api/groups/all' );
+  }
+
+  leaveUserGroup(data: UserGroup): Observable<any> {
+    return this.http.post('/api/groups/leave', data.key);
+  }
+
+  joinUserGroup(token: string): Observable<UserGroup> {
+    return this.http.post<UserGroup>('/api/groups/join', token);
+  }
+
+  saveUserGroup(data: UserGroup): Observable<UserGroup> {
+    return this.http.post<UserGroup>('/api/groups/save', data);
   }
 }

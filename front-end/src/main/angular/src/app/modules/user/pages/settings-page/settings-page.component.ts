@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./settings-page.component.css']
 })
 export class SettingsPageComponent implements OnInit {
+  selectedItem: string = 'details';
 
   constructor() { }
 

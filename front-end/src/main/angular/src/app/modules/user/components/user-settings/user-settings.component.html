@@ -22,6 +22,10 @@
           <input matInput placeholder="Last Name" [(ngModel)]="user.lastName" type="text" name="lastName">
         </mat-form-field>
 
+        <mat-form-field >
+          <input matInput placeholder="Group" [(ngModel)]="user.group" type="text" name="group">
+        </mat-form-field>
+
         <mat-accordion>
           <mat-expansion-panel (opened)="changePassword = true" (closed)="changePassword = false">
             <mat-expansion-panel-header>
