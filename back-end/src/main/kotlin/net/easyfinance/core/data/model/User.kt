@@ -5,7 +5,7 @@ import javax.persistence.*
 @Entity
 data class User(
         @Id
-        @GeneratedValue(strategy = GenerationType.AUTO)
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         var id: Long = 0,
 
         @Column(nullable = false, unique = true)

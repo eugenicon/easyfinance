@@ -8,7 +8,7 @@ import javax.persistence.*
 @Entity
 data class Budget(
         @Id
-        @GeneratedValue(strategy = GenerationType.AUTO)
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         var id: Long = 0,
 
         @ManyToOne

@@ -13,6 +13,8 @@ class UserService(private val repository: UserRepository, private val userGroupS
     fun save(entity: User) = repository.save(entity)
 
     fun findRelated(user: User): Collection<User> {
-        return userGroupService.findAllByUser(user).flatMap { it.users }
+        return mutableListOf(user).apply {
+            addAll(userGroupService.findAllByUser(user).flatMap { it.users })
+        }
     }
 }

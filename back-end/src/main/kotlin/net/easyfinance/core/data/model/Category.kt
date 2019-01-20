@@ -6,7 +6,7 @@ import javax.persistence.*
 @Entity
 data class Category(
         @Id
-        @GeneratedValue(strategy = GenerationType.AUTO)
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         var id: Long = 0,
 
         val name: String = "",
