@@ -1,2 +1,3 @@
 <mat-error *ngIf="hasError('required')">{{field}} is <strong>required</strong></mat-error>
 <mat-error *ngIf="hasError('minlength')">Minimum length for {{field}} is {{control.errors.minlength.requiredLength}}</mat-error>
+<mat-error *ngIf="hasError('email')">Use valid email as {{field}}</mat-error>

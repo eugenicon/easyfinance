@@ -4,3 +4,7 @@ export class User {
   password: string = "";
   fullName: string = "";
 }
+
+export class RegisterUser extends User{
+  passwordConfirmation: string = "";
+}

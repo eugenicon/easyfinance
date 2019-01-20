@@ -2,18 +2,16 @@
   height: 80vh;
 }
 
-mat-card-content {
-  width: 350px;
+mat-tab-group {
+  height: 340px;
 }
 
-mat-form-field {
-  width: 100%;
+::ng-deep .mat-tab-body-content {
+  overflow: visible !important;
 }
 
-button {
-  width: 40%;
-}
-
-mat-card-header {
-
+::ng-deep .mat-tab-label.mat-tab-label-active {
+  background-color: #3f51b5;
+  border-radius: 3px;
+  color: white;
 }

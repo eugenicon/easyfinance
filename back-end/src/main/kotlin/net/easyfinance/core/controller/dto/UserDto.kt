@@ -9,4 +9,11 @@ data class UserDto(val id: Long = 0,
     fun asEntity() = this.makeCopy<User>()
 }
 
+data class NewUserDto(val id: Long = 0,
+                   val name: String = "",
+                   val password: String = "") {
+
+    fun asEntity() = this.makeCopy<User>()
+}
+
 fun User.asDto() = this.makeCopy<UserDto>()
