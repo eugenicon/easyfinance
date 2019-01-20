@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface CategoryRepository: JpaRepository<Category, Long> {
-    fun findAllByUserOrUserGroup(user: User, group: UserGroup?): MutableList<Category>
+    fun findAllByUserOrUserGroupAndUserGroupNotNull(user: User, group: UserGroup?): MutableList<Category>
 }

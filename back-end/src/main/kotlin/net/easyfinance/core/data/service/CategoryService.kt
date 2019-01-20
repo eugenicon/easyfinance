@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service
 @Service
 class CategoryService(private val repository: CategoryRepository) {
 
-    fun findAllByUser(user: User): MutableList<Category> = repository.findAllByUserOrUserGroup(user, user.group)
+    fun findAllByUser(user: User): MutableList<Category> = repository.findAllByUserOrUserGroupAndUserGroupNotNull(user, user.group)
 
     fun getById(id: Long) = repository.getOne(id)
 

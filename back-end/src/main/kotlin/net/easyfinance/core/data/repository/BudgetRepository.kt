@@ -13,5 +13,5 @@ interface BudgetRepository: JpaRepository<Budget, Long> {
     @Transactional
     fun deleteAllByCategory(category: Category)
 
-    fun findAllByUserOrUserGroup(user: User, group: UserGroup?): MutableList<Budget>
+    fun findAllByUserOrUserGroupAndUserGroupNotNull(user: User, group: UserGroup?): MutableList<Budget>
 }

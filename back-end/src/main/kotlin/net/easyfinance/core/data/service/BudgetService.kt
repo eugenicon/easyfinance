@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service
 @Service
 class BudgetService(private val repository: BudgetRepository) {
 
-    fun findAllByUser(user: User): MutableList<Budget> = repository.findAllByUserOrUserGroup(user, user.group)
+    fun findAllByUser(user: User): MutableList<Budget> = repository.findAllByUserOrUserGroupAndUserGroupNotNull(user, user.group)
 
     fun getById(id: Long) = repository.getOne(id)
 

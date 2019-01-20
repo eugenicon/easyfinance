@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface AccountRepository: JpaRepository<Account, Long> {
-    fun findAllByUserOrUserGroup(user: User, group: UserGroup?): MutableList<Account>
+    fun findAllByUserOrUserGroupAndUserGroupNotNull(user: User, group: UserGroup?): MutableList<Account>
 }

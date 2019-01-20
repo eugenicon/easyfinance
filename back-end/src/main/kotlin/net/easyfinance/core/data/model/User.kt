@@ -15,5 +15,11 @@ data class User(
         var password: String = "",
 
         @ManyToOne
-        var group: UserGroup? = null
+        var group: UserGroup? = null,
+
+        @Column
+        var firstName: String = "",
+
+        @Column
+        var lastName: String = ""
 )

@@ -8,5 +8,7 @@ import org.springframework.stereotype.Service
 class UserService(private val repository: UserRepository) {
     fun findByUsername(username: String) = repository.findByName(username)
 
+    fun findById(id: Long) = repository.getOne(id)
+
     fun save(entity: User) = repository.save(entity)
 }

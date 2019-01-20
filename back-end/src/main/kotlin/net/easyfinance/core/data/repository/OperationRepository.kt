@@ -13,5 +13,5 @@ interface OperationRepository: JpaRepository<Operation, Long> {
     @Transactional
     fun deleteAllByCategory(category: Category)
 
-    fun findAllByUserOrUserGroup(user: User, group: UserGroup?): MutableList<Operation>
+    fun findAllByUserOrUserGroupAndUserGroupNotNull(user: User, group: UserGroup?): MutableList<Operation>
 }
