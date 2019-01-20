@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {RegisterUser} from "../../user.model";
+import {User} from "../../user.model";
 import {AuthenticationService} from "../../../../core/services/authentication.service";
 import {NgForm} from "@angular/forms";
 
@@ -9,7 +9,7 @@ import {NgForm} from "@angular/forms";
   styleUrls: ['./user-register.component.css']
 })
 export class UserRegisterComponent implements OnInit {
-  user: RegisterUser = new RegisterUser();
+  user: User = new User();
 
   constructor(private auth: AuthenticationService) {
   }

@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Router} from "@angular/router";
 import {BehaviorSubject, Observable} from "rxjs";
 import {catchError, map} from "rxjs/operators";
-import {RegisterUser} from "../../modules/user/user.model";
+import {User} from "../../modules/user/user.model";
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +12,8 @@ export class AuthenticationService {
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
   public isAuthenticated = this.isAuthenticatedSubject.asObservable();
 
-  private userNameSubject = new BehaviorSubject<string>('');
-  public userName = this.userNameSubject.asObservable();
+  private userSubject = new BehaviorSubject<User>(User.EMPTY);
+  public user = this.userSubject.asObservable();
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -22,12 +22,12 @@ export class AuthenticationService {
       authorization: 'Basic ' + btoa(credentials.name + ':' + credentials.password)
     } : {});
 
-    let observable = this.http.get('api/user/authenticated', {headers: headers});
+    let observable = this.http.get<User>('api/user/authenticated', {headers: headers});
     return observable.pipe(map(authenticatedUser => {
       let wasAuthenticated = this.isAuthenticatedSubject.getValue();
       let isAuthenticated = authenticatedUser ? authenticatedUser['name'].length > 0 : false;
       this.isAuthenticatedSubject.next(isAuthenticated);
-      this.userNameSubject.next(isAuthenticated ? authenticatedUser['name'] : '');
+      this.userSubject.next(isAuthenticated ? authenticatedUser : User.EMPTY);
       if (wasAuthenticated && !isAuthenticated) {
         this.router.navigateByUrl('user/login');
       }
@@ -56,10 +56,14 @@ export class AuthenticationService {
     });
   }
 
-  register(user: RegisterUser, navigateAfter: string = '/') {
+  register(user: User, navigateAfter: string = '/') {
     this.http.post('api/user/register', user).subscribe(() => {
       this.isAuthenticatedSubject.next(false);
       this.router.navigateByUrl(navigateAfter);
     });
+  }
+
+  save(user: User): Observable<any> {
+    return this.http.post('api/user/save', user);
   }
 }

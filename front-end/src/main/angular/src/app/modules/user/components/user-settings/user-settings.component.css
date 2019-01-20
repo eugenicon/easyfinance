@@ -1,0 +1,27 @@
+mat-card-content {
+  width: 350px;
+}
+
+.mat-card {
+  box-shadow: none !important;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+button {
+  width: 40%;
+}
+
+mat-expansion-panel {
+  box-shadow: none !important;
+}
+
+.mat-expansion-panel-header {
+  padding: 0 5px 0 0 !important;
+}
+
+::ng-deep .mat-expansion-panel-body {
+  padding: 0 0 16px 24px !important;
+}

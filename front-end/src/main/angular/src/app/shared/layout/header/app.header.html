@@ -17,11 +17,16 @@
 
       <ng-container *showIfAuth="true" >
         <button mat-button [matMenuTriggerFor]="userMenu">
-          {{auth.userName| async}}
+          {{(auth.user| async).name}}
           <mat-icon>reorder</mat-icon>
         </button>
 
         <mat-menu #userMenu="matMenu">
+          <button  mat-menu-item  routerLink="user/settings">
+            <mat-icon>settings</mat-icon>
+            Settings
+          </button>
+
           <button  mat-menu-item  externalUrl="_blank:/swagger-ui.html">
             <mat-icon>send</mat-icon>
             Swagger

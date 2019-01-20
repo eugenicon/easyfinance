@@ -2,9 +2,11 @@ export class User {
   id: string;
   name: string = "";
   password: string = "";
-  fullName: string = "";
-}
+  firstName: string = "";
+  lastName: string = "";
 
-export class RegisterUser extends User{
+  newPassword: string = "";
   passwordConfirmation: string = "";
+
+  static EMPTY = new User();
 }
