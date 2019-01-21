@@ -2,7 +2,6 @@ package net.easyfinance.core.controller.rest
 
 import net.easyfinance.core.controller.dto.UserGroupDto
 import net.easyfinance.core.controller.dto.asDto
-import net.easyfinance.core.data.model.UserGroup
 import net.easyfinance.core.data.service.UserGroupService
 import net.easyfinance.core.data.service.UserService
 import net.easyfinance.core.security.getUser
@@ -19,7 +18,7 @@ open class UserGroupRestController(private val service: UserGroupService, privat
     fun getAll(auth: Authentication) = service.findAllByUser(userService.findByUsername(auth.name)).map { it.asDto() }
 
     @PostMapping("/save")
-    open fun save(@RequestBody dto: UserGroupDto, auth: Authentication): UserGroup {
+    open fun save(@RequestBody dto: UserGroupDto, auth: Authentication): UserGroupDto {
         val entity = if (dto.id == 0L) dto.asEntity() else service.findById(dto.id)
         val user = auth.getUser()
         if (entity.id == 0L) {
@@ -28,20 +27,20 @@ open class UserGroupRestController(private val service: UserGroupService, privat
         }
         entity.name = dto.name
         entity.users.add(user)
-        return service.save(entity)
+        return service.save(entity).asDto()
     }
 
     @PostMapping("/join")
-    fun join(@RequestBody token: String, auth: Authentication): UserGroup {
+    fun join(@RequestBody token: String, auth: Authentication): UserGroupDto {
         val group = service.findByKey(token).orElseThrow { HttpClientErrorException(HttpStatus.NOT_FOUND) }
         group.users.add(auth.getUser())
-        return service.save(group)
+        return service.save(group).asDto()
     }
 
     @PostMapping("/leave")
-    fun leave(@RequestBody key: String, auth: Authentication): UserGroup {
+    fun leave(@RequestBody key: String, auth: Authentication): UserGroupDto {
         val group = service.findByKey(key).orElseThrow { HttpClientErrorException(HttpStatus.NOT_FOUND) }
         group.users.remove(auth.getUser())
-        return service.save(group)
+        return service.save(group).asDto()
     }
 }
