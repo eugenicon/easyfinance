@@ -108,7 +108,11 @@ export class TableComponent<T> implements OnInit, AfterViewInit {
       dataAsString = this.columnNames.reduce(accumulator, '').toLowerCase();
     }
 
-    return dataAsString.match(filter);
+    try {
+      return dataAsString.match(filter);
+    } catch (e) {
+      return false;
+    }
   }
 
   private retrieveValueForSorting(data: any, key: string) {
