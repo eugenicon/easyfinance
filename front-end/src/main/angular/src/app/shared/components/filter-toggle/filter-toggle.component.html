@@ -1,0 +1,24 @@
+<div class="filter-header-container" [matMenuTriggerFor]="menu"  >
+  <div>
+    <ng-content></ng-content>
+  </div>
+  <div [ngSwitch]="hasChanges()">
+    <span *ngSwitchCase="true" [className]="filterIcon"></span>
+    <span *ngSwitchCase="false" [className]="filterIcon + ' filter-hint'"></span>
+  </div>
+</div>
+
+<mat-menu #menu>
+  <div class="filter-menu">
+    <div class="checkbox-container">
+      <mat-checkbox *ngFor="let item of values" [checked]="item.checked" (change)="applyFilter($event, item)">{{item.label}}</mat-checkbox>
+    </div>
+
+    <div app-sort-header>
+      Sort:
+      <span asc-placeholder> A-Z</span>
+      <span desc-placeholder> Z-A</span>
+      <span hint-placeholder> A-Z</span>
+    </div>
+  </div>
+</mat-menu>

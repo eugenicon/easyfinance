@@ -1,0 +1,27 @@
+.checkbox-container {
+  display: grid;
+}
+
+.filter-menu {
+  padding: 0 10px;
+}
+
+.filter-hint {
+  opacity: 0.0;
+}
+
+.filter-header-container {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  user-select: none;
+}
+
+.filter-header-container:hover .filter-hint {
+  opacity: 0.5;
+}
+
+.filter-header-container > *:not(:first-child) {
+  margin: 0 7px;
+}
+

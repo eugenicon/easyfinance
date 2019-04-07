@@ -3,6 +3,7 @@ import {
   MAT_DIALOG_DEFAULT_OPTIONS,
   MatButtonModule,
   MatCardModule,
+  MatCheckboxModule,
   MatDialogModule,
   MatFormFieldModule,
   MatIconModule,
@@ -41,6 +42,8 @@ import {
   ExternalUrlResolver,
   NotFoundComponent
 } from './directives/external-url/external-url.directive';
+import {FilterToggleComponent} from './components/filter-toggle/filter-toggle.component';
+import {CustomSortComponent} from './components/custom-sort/custom-sort.component';
 
 
 const routes: Routes = [
@@ -66,6 +69,7 @@ const routes: Routes = [
     MatDialogModule,
     MatOptionModule,
     MatSelectModule,
+    MatCheckboxModule,
 
     LayoutModule,
     FlexLayoutModule,
@@ -89,7 +93,9 @@ const routes: Routes = [
     ConfirmDialogComponent,
     BarChartComponent,
     ExternalUrlDirective,
-    NotFoundComponent
+    NotFoundComponent,
+    FilterToggleComponent,
+    CustomSortComponent,
   ],
   exports: [
     CommonModule,

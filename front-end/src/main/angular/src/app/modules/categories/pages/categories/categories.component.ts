@@ -6,6 +6,7 @@ import {Category} from "../../category.model";
 import {BehaviorSubject} from "rxjs";
 import {ConfirmDialogComponent} from "../../../../shared/components/confirm-dialog/confirm-dialog.component";
 import {TableColumn} from "../../../../shared/components/table/table.component";
+import {distinct} from "../../../../shared/utils/lambda-utilities";
 
 @Component({
   selector: 'app-categories',
@@ -14,7 +15,12 @@ import {TableColumn} from "../../../../shared/components/table/table.component";
 })
 export class CategoriesComponent implements OnInit {
   data = new BehaviorSubject<Category[]>([]);
-  columns: TableColumn<Category>[] = [{name: "id"}, {name: "name"}, {name: "type"}];
+  columns: TableColumn<Category>[] = [
+    {name: "id"},
+    {name: "name"},
+    {name: "type", filter: () =>
+        this.data.getValue().filter(distinct('type')).map(a => ({ value: a.type }) )}
+    ];
 
   constructor(protected dataService: DataService, public dialog: MatDialog) {
   }
@@ -35,7 +41,7 @@ export class CategoriesComponent implements OnInit {
     const dialog = this.dialog.open(ConfirmDialogComponent, {width: '300px', data: data});
 
     dialog.afterClosed().subscribe(result => {
-      if (result) this.dataService.deleteCategory(data).subscribe(value => this.updateData())
+      if (result) this.dataService.deleteCategory(data).subscribe(() => this.updateData())
     });
   }
 

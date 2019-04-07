@@ -1,0 +1,17 @@
+<div class="sort-header-container" (click)="onSortButtonClick()">
+  <button class="sort-header-button" type="button" [attr.aria-label]="header.sortButtonLabel">
+    <ng-content></ng-content>
+  </button>
+
+  <div [ngSwitch]="direction">
+    <div *ngSwitchCase="'asc'" [className]="sortUpIcon">
+      <ng-content select="[asc-placeholder]"></ng-content>
+    </div>
+    <div *ngSwitchCase="'desc'" [className]="sortDownIcon">
+      <ng-content select="[desc-placeholder]"></ng-content>
+    </div>
+    <div *ngSwitchDefault [className]="sortUpIcon + ' sort-hint'">
+      <ng-content select="[hint-placeholder]"></ng-content>
+    </div>
+  </div>
+</div>

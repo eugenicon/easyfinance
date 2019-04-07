@@ -9,6 +9,7 @@ import {MatDialog} from "@angular/material";
 import {SaveOperationDialogComponent} from "../../components/save-operation-dialog/save-operation-dialog.component";
 import {ActionCell} from "../../../../shared/components/table-cell-action/table-cell-action.component";
 import {ConfirmDialogComponent} from "../../../../shared/components/confirm-dialog/confirm-dialog.component";
+import {distinct} from "../../../../shared/utils/lambda-utilities";
 
 @Component({
   selector: 'app-operations',
@@ -22,9 +23,17 @@ export class OperationsComponent implements OnInit {
     {name: "id"},
     {
       name: "category", value: it => it.category.name,
-      cell: new ActionCell<Operation>(it => this.openCategoryDialog(it.category))
+      cell: new ActionCell<Operation>(it => this.openCategoryDialog(it.category)),
+      filter: () => this.data.getValue()
+        .filter(distinct(a => a.category.id))
+        .map(a => ({ value: a.category, label: a.category.name}) )
     },
-    {name: "description"},
+    {
+      name: "description",
+      filter: () => this.data.getValue()
+        .filter(distinct('description'))
+        .map(a => ({ value: a.description}) )
+    },
     {name: "sum"},
   ];
 
@@ -47,7 +56,7 @@ export class OperationsComponent implements OnInit {
     const dialog = this.dialog.open(ConfirmDialogComponent, {width: '300px', data: data});
 
     dialog.afterClosed().subscribe(result => {
-      if (result) this.dataService.deleteOperation(data).subscribe(value => this.updateData())
+      if (result) this.dataService.deleteOperation(data).subscribe(() => this.updateData())
     });
   }
 
