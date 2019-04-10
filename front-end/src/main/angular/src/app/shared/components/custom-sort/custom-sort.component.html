@@ -4,13 +4,13 @@
   </button>
 
   <div [ngSwitch]="direction">
-    <div *ngSwitchCase="'asc'" [className]="sortUpIcon">
+    <div *ngSwitchCase="'asc'" [className]="sortUpIcon + ' sort-icon'">
       <ng-content select="[asc-placeholder]"></ng-content>
     </div>
-    <div *ngSwitchCase="'desc'" [className]="sortDownIcon">
+    <div *ngSwitchCase="'desc'" [className]="sortDownIcon + ' sort-icon'">
       <ng-content select="[desc-placeholder]"></ng-content>
     </div>
-    <div *ngSwitchDefault [className]="sortUpIcon + ' sort-hint'">
+    <div *ngSwitchDefault [className]="sortUpIcon + ' sort-icon sort-hint'">
       <ng-content select="[hint-placeholder]"></ng-content>
     </div>
   </div>

@@ -35,3 +35,7 @@
     border: 0;
   }
 }
+
+:host(.colored) .sort-icon {
+  color: #3f51b5;
+}

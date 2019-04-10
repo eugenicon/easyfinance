@@ -3,7 +3,7 @@ import {MatSort, MatSortable, MatSortHeaderIntl, Sort, SortDirection} from "@ang
 import {Subscription} from "rxjs";
 
 @Component({
-  selector: '[app-sort-header]',
+  selector: 'app-sort-header, [app-sort-header]',
   templateUrl: './custom-sort.component.html',
   styleUrls: ['./custom-sort.component.scss']
 })
@@ -15,7 +15,7 @@ export class CustomSortComponent implements MatSortable, OnInit, OnDestroy{
   @Input() disableClear: boolean;
 
   private sortSubscription: Subscription;
-  private direction: SortDirection;
+  direction: SortDirection;
 
   constructor(public header: MatSortHeaderIntl,
               @Optional() public matSort: MatSort,

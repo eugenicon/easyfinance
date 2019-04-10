@@ -14,11 +14,11 @@
       <mat-checkbox *ngFor="let item of values" [checked]="item.checked" (change)="applyFilter($event, item)">{{item.label}}</mat-checkbox>
     </div>
 
-    <div app-sort-header>
+    <app-sort-header class="colored">
       Sort:
       <span asc-placeholder> A-Z</span>
       <span desc-placeholder> Z-A</span>
       <span hint-placeholder> A-Z</span>
-    </div>
+    </app-sort-header>
   </div>
 </mat-menu>
