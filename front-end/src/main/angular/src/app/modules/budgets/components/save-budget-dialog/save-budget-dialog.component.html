@@ -1,4 +1,4 @@
-<app-modal [title]="(data.id ? 'Edit' : 'New') + ' Budget'" [handler]="onSave.bind(this)">
+<app-modal [title]="(data.id ? 'Edit' : 'New') + ' Budget'" (onClose)="onClose($event.valueOf())">
 
   <form #form="ngForm" mat-dialog-content>
     <mat-form-field>

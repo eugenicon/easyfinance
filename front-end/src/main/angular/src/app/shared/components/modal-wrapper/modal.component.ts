@@ -1,4 +1,4 @@
-import {Component, HostListener, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
 import {MatDialogRef} from "@angular/material";
 
 @Component({
@@ -8,20 +8,20 @@ import {MatDialogRef} from "@angular/material";
 })
 export class ModalComponent implements OnInit {
   @Input() title: string;
-  @Input() handler = () => this.close();
-
-
+  @Output() onClose = new EventEmitter<boolean>();
 
   constructor(private dialog: MatDialogRef<ModalComponent>) { }
 
   ngOnInit() {
+    console.log("ModalComponent.ngOnInit")
   }
 
-  save() {
-    this.handler();
+  save(): void {
+    this.onClose.emit(true);
   }
 
-  @HostListener('window:keyup.esc') close(data: any = null) {
-    this.dialog.close(data);
+  @HostListener('window:keyup.esc') close() {
+    this.dialog.close();
+    this.onClose.emit(false);
   }
 }

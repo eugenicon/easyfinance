@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {Category} from "../../../categories/category.model";
-import {MAT_DIALOG_DATA} from "@angular/material";
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
 import {DataService} from "../../../../core/services/data.service";
 import {NgForm} from "@angular/forms";
 import * as deepEqual from "deep-equal";
@@ -13,20 +13,24 @@ import {ModalComponent} from "../../../../shared/components/modal-wrapper/modal.
   styleUrls: ['./save-budget-dialog.component.css']
 })
 export class SaveBudgetDialogComponent implements OnInit {
-  @ViewChild(ModalComponent) modal: ModalComponent;
   @ViewChild('form') form: NgForm;
   categories: Category[] = [];
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: Budget, private dataService: DataService) {
+    private dialog: MatDialogRef<ModalComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: Budget,
+    private dataService: DataService) {
   }
 
-  onSave(): void {
-    if (!this.form.valid) return;
+  onClose(isSaved: boolean): void {
+    console.log(isSaved);
+    if (isSaved) {
+      if (!this.form.valid) return;
 
-    this.dataService.saveBudget(this.data).subscribe(() => {
-      this.modal.close(this.data);
-    });
+      this.dataService.saveBudget(this.data).subscribe(() => {
+        this.dialog.close(this.data);
+      });
+    }
   }
 
   ngOnInit(): void {
