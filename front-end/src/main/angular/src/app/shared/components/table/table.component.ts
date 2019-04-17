@@ -11,7 +11,11 @@ export class TableCell<T> implements OnInit {
 
   value() {
     if (!this.cellValue) {
-      this.cellValue = TableColumn.value(this.item, this.column);
+      try {
+        this.cellValue = TableColumn.value(this.item, this.column);
+      } catch (e) {
+
+      }
     }
     return this.cellValue;
   }

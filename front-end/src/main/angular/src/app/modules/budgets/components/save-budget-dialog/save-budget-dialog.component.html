@@ -1,21 +1,19 @@
-<h1 mat-dialog-title>{{data.id == 0 ? 'New' : 'Edit'}} Budget</h1>
+<app-modal [title]="(data.id ? 'Edit' : 'New') + ' Budget'" [handler]="onSave.bind(this)">
 
-<form #form="ngForm" mat-dialog-content>
-  <mat-form-field>
-    <mat-select name="type" [(ngModel)]="data.category" placeholder="Category" #type="ngModel" required>
-      <mat-option *ngFor="let item of categories" [value]="item">
-        {{item?.name}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+  <form #form="ngForm" mat-dialog-content>
+    <mat-form-field>
+      <mat-select name="type" [(ngModel)]="data.category" placeholder="Category" #type="ngModel" required>
+        <mat-option *ngFor="let item of categories" [value]="item">
+          {{item?.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
-  <mat-form-field>
-    <input matInput type="number" name="sum" [(ngModel)]="data.sum" placeholder="Sum" #sum="ngModel" required min="1">
-  </mat-form-field>
-  <app-validations [field]="'Sum'" [control]="sum"></app-validations>
+    <mat-form-field>
+      <input matInput type="number" name="sum" [(ngModel)]="data.sum" placeholder="Sum" #sum="ngModel" required min="1">
+    </mat-form-field>
+    <app-validations [field]="'Sum'" [control]="sum"></app-validations>
+  </form>
 
-  <div>
-    <button mat-button (click)="onSave(form)">Save</button>
-    <button mat-button (click)="onCancel()">Cancel</button>
-  </div>
-</form>
+  <div modal-footer> Under buttons </div>
+</app-modal>

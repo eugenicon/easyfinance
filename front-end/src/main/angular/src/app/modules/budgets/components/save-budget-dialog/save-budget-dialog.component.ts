@@ -1,10 +1,11 @@
-import {Component, HostListener, Inject, OnInit} from '@angular/core';
+import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {Category} from "../../../categories/category.model";
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
+import {MAT_DIALOG_DATA} from "@angular/material";
 import {DataService} from "../../../../core/services/data.service";
 import {NgForm} from "@angular/forms";
 import * as deepEqual from "deep-equal";
 import {Budget} from "../../budgets.model";
+import {ModalComponent} from "../../../../shared/components/modal-wrapper/modal.component";
 
 @Component({
   selector: 'app-save-budget-dialog',
@@ -12,22 +13,19 @@ import {Budget} from "../../budgets.model";
   styleUrls: ['./save-budget-dialog.component.css']
 })
 export class SaveBudgetDialogComponent implements OnInit {
+  @ViewChild(ModalComponent) modal: ModalComponent;
+  @ViewChild('form') form: NgForm;
   categories: Category[] = [];
 
   constructor(
-    public dialogRef: MatDialogRef<SaveBudgetDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Budget, private dataService: DataService) {
   }
 
-  @HostListener('window:keyup.esc') onCancel() {
-    this.dialogRef.close();
-  }
+  onSave(): void {
+    if (!this.form.valid) return;
 
-  onSave(form: NgForm): void {
-    if (!form.valid) return;
-
-    this.dataService.saveBudget(this.data).subscribe(value => {
-      this.dialogRef.close(this.data);
+    this.dataService.saveBudget(this.data).subscribe(() => {
+      this.modal.close(this.data);
     });
   }
 

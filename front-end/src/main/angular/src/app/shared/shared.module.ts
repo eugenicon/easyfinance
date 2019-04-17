@@ -44,6 +44,7 @@ import {
 } from './directives/external-url/external-url.directive';
 import {FilterToggleComponent} from './components/filter-toggle/filter-toggle.component';
 import {CustomSortComponent} from './components/custom-sort/custom-sort.component';
+import { ModalComponent } from './components/modal-wrapper/modal.component';
 
 
 const routes: Routes = [
@@ -96,6 +97,7 @@ const routes: Routes = [
     NotFoundComponent,
     FilterToggleComponent,
     CustomSortComponent,
+    ModalComponent
   ],
   exports: [
     CommonModule,
@@ -120,7 +122,8 @@ const routes: Routes = [
     MatOptionModule,
     MatSelectModule,
     MatIconModule,
-    BarChartComponent
+    BarChartComponent,
+    ModalComponent
   ],
   entryComponents: [
     TableCellTextComponent,
