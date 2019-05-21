@@ -45,6 +45,7 @@ import {
 import {FilterToggleComponent} from './components/filter-toggle/filter-toggle.component';
 import {CustomSortComponent} from './components/custom-sort/custom-sort.component';
 import { ModalComponent } from './components/modal-wrapper/modal.component';
+import { FormattedInputComponent } from './components/formatted-input/formatted-input.component';
 
 
 const routes: Routes = [
@@ -97,7 +98,8 @@ const routes: Routes = [
     NotFoundComponent,
     FilterToggleComponent,
     CustomSortComponent,
-    ModalComponent
+    ModalComponent,
+    FormattedInputComponent
   ],
   exports: [
     CommonModule,
@@ -123,7 +125,8 @@ const routes: Routes = [
     MatSelectModule,
     MatIconModule,
     BarChartComponent,
-    ModalComponent
+    ModalComponent,
+    FormattedInputComponent
   ],
   entryComponents: [
     TableCellTextComponent,

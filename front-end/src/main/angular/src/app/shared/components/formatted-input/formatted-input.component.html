@@ -1,0 +1,13 @@
+<div>
+  <div class="form-field">
+    <input #input type="number" class="form-control" [(ngModel)]="value" (focus)="updateFocus(true)" (blur)="updateFocus(false)"
+           [ngClass]="{'visible': focused, 'hidden': !focused}" [disabled]="isDisabled" (ngModelChange)="onChange(value)">
+
+    <div class="marker" [ngClass]="{'visible': !focused, 'hidden': focused}">
+      <div *ngIf="value < 0">-</div>
+      <div class="symbol">{{symbol}}</div>
+      <div>{{absoluteValue()}}</div>
+    </div>
+  </div>
+</div>
+

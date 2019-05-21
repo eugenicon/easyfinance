@@ -1,0 +1,37 @@
+.form-field {
+  position: relative;
+  width: 100%;
+}
+
+input {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  text-align: right;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.marker {
+  @extend input;
+  padding: 3px 17.25px 4px 0;
+  background: transparent;
+  pointer-events: none;
+  z-index: 5;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.symbol {
+  font-weight: bold;
+}
+
+.hidden {
+  color: transparent;
+}
+
+.visible {
+  color: unset;
+}
