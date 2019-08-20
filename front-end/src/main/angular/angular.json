@@ -31,7 +31,10 @@
               "./node_modules/font-awesome/css/font-awesome.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "lazyModules": [
+              "src/app/modules/dialog/dialog.module"
+            ]
           },
           "configurations": {
             "production": {

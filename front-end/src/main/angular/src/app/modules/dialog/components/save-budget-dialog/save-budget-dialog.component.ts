@@ -4,7 +4,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
 import {DataService} from "../../../../core/services/data.service";
 import {NgForm} from "@angular/forms";
 import * as deepEqual from "deep-equal";
-import {Budget} from "../../budgets.model";
+import {Budget} from "../../../budgets/budgets.model";
 import {ModalComponent} from "../../../../shared/components/modal-wrapper/modal.component";
 
 @Component({

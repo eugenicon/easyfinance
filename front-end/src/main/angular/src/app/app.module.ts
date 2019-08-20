@@ -6,12 +6,18 @@ import {AppComponent} from "./app.component";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {XhrInterceptor} from "./core/interceptors/xhr.interceptor";
+import {CoalescingComponentFactoryResolver} from "./shared/services/component-factory-resolver/coalescing-component-factory-resolver";
+import {ModuleLoaderService} from "./shared/services/module-loader/module-loader.service";
 
 @NgModule({
   declarations: [
     AppComponent
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true },
+    CoalescingComponentFactoryResolver,
+    ModuleLoaderService
+  ],
   imports: [
     BrowserAnimationsModule,
 
@@ -22,4 +28,8 @@ import {XhrInterceptor} from "./core/interceptors/xhr.interceptor";
 
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(coalescingResolver: CoalescingComponentFactoryResolver) {
+    coalescingResolver.init();
+  }
+}

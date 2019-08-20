@@ -8,7 +8,9 @@ import {TableColumn} from "../../../../shared/components/table/table.component";
 import {ActionCell} from "../../../../shared/components/table-cell-action/table-cell-action.component";
 import {Category} from "../../../categories/category.model";
 import {SaveCategoryDialogComponent} from "../../../categories/components/save-category-dialog/save-category-dialog.component";
-import {SaveBudgetDialogComponent} from "../../components/save-budget-dialog/save-budget-dialog.component";
+import {SaveBudgetDialogComponent} from "../../../dialog/components/save-budget-dialog/save-budget-dialog.component";
+import {switchMap} from "rxjs/operators";
+import {ModuleLoaderService} from "../../../../shared/services/module-loader/module-loader.service";
 
 @Component({
   selector: 'app-budgets',
@@ -27,7 +29,8 @@ export class BudgetsComponent implements OnInit {
     {name: "sum"}
   ];
 
-  constructor(protected dataService: DataService, public dialog: MatDialog) { }
+  constructor(protected dataService: DataService, public dialog: MatDialog,
+              private moduleLoader: ModuleLoaderService) { }
 
   ngOnInit(): void {
     this.updateData();
@@ -50,9 +53,12 @@ export class BudgetsComponent implements OnInit {
   }
 
   private openDialog(dialogType: Type<any>, data: any) {
-    const dialog = this.dialog.open(dialogType, {width: '300px', data: data});
-
-    dialog.afterClosed().subscribe(result => {
+    this.moduleLoader.loadModule("modules/dialog/dialog.module#DialogModule").pipe(
+      switchMap(() => {
+        const dialog = this.dialog.open(dialogType, {width: '300px', data: data});
+        return dialog.afterClosed();
+      })
+    ).subscribe(result => {
       if (result) this.updateData();
     });
   }
