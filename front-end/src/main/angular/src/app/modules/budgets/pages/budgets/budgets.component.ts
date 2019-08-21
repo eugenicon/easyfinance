@@ -10,7 +10,7 @@ import {Category} from "../../../categories/category.model";
 import {SaveCategoryDialogComponent} from "../../../categories/components/save-category-dialog/save-category-dialog.component";
 import {SaveBudgetDialogComponent} from "../../../dialog/components/save-budget-dialog/save-budget-dialog.component";
 import {switchMap} from "rxjs/operators";
-import {ModuleLoaderService} from "../../../../shared/services/module-loader/module-loader.service";
+import {LazyModuleResolver} from "../../../../shared/services/lazy-module-resolver/lazy-module-resolver.service";
 
 @Component({
   selector: 'app-budgets',
@@ -30,7 +30,7 @@ export class BudgetsComponent implements OnInit {
   ];
 
   constructor(protected dataService: DataService, public dialog: MatDialog,
-              private moduleLoader: ModuleLoaderService) { }
+              private moduleResolver: LazyModuleResolver) { }
 
   ngOnInit(): void {
     this.updateData();
@@ -53,7 +53,7 @@ export class BudgetsComponent implements OnInit {
   }
 
   private openDialog(dialogType: Type<any>, data: any) {
-    this.moduleLoader.loadModule("modules/dialog/dialog.module#DialogModule").pipe(
+    this.moduleResolver.loadModule("modules/dialog/dialog.module#DialogModule").pipe(
       switchMap(() => {
         const dialog = this.dialog.open(dialogType, {width: '300px', data: data});
         return dialog.afterClosed();

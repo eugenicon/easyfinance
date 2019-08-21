@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
+import { LazyModuleResolver } from "./lazy-module-resolver.service";
 
-import { ModuleLoaderService } from './module-loader.service';
 
-describe('ModuleLoaderService', () => {
+describe('LazyModuleResolver', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: ModuleLoaderService = TestBed.get(ModuleLoaderService);
+    const service: LazyModuleResolver = TestBed.get(LazyModuleResolver);
     expect(service).toBeTruthy();
   });
 });

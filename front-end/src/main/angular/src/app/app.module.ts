@@ -6,8 +6,7 @@ import {AppComponent} from "./app.component";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {XhrInterceptor} from "./core/interceptors/xhr.interceptor";
-import {CoalescingComponentFactoryResolver} from "./shared/services/component-factory-resolver/coalescing-component-factory-resolver";
-import {ModuleLoaderService} from "./shared/services/module-loader/module-loader.service";
+import {LazyModuleResolver} from "./shared/services/lazy-module-resolver/lazy-module-resolver.service";
 
 @NgModule({
   declarations: [
@@ -15,8 +14,7 @@ import {ModuleLoaderService} from "./shared/services/module-loader/module-loader
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true },
-    CoalescingComponentFactoryResolver,
-    ModuleLoaderService
+    LazyModuleResolver
   ],
   imports: [
     BrowserAnimationsModule,
@@ -29,7 +27,7 @@ import {ModuleLoaderService} from "./shared/services/module-loader/module-loader
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(coalescingResolver: CoalescingComponentFactoryResolver, localResolver: ComponentFactoryResolver) {
-    coalescingResolver.registerRootResolver(localResolver);
+  constructor(lazyModuleResolver: LazyModuleResolver, localResolver: ComponentFactoryResolver) {
+    lazyModuleResolver.registerRootResolver(localResolver);
   }
 }
