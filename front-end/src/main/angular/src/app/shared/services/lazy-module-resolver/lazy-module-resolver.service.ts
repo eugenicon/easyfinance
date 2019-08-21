@@ -7,6 +7,7 @@ import {
   Type
 } from '@angular/core';
 import {from, Observable} from "rxjs";
+import {environment} from "../../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -47,7 +48,7 @@ export class LazyModuleResolver {
   };
 
   public loadModule(path: string): Observable<any> {
-    const modulePath = 'src/app/' + path;
+    const modulePath = environment.rootPath + path;
     return from(this.moduleLoader
       .load(modulePath)
       .then((module: NgModuleFactory<any>) => {
