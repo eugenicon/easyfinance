@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {ComponentFactoryResolver, NgModule} from '@angular/core';
 
 import {AppRoutingModule} from './app-routing.module';
 import {SharedModule} from "./shared/shared.module";
@@ -29,7 +29,7 @@ import {ModuleLoaderService} from "./shared/services/module-loader/module-loader
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(coalescingResolver: CoalescingComponentFactoryResolver) {
-    coalescingResolver.init();
+  constructor(coalescingResolver: CoalescingComponentFactoryResolver, localResolver: ComponentFactoryResolver) {
+    coalescingResolver.registerRootResolver(localResolver);
   }
 }

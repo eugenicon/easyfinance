@@ -17,7 +17,7 @@ import {SharedModule} from "../../shared/shared.module";
   ]
 })
 export class DialogModule {
-  constructor(globalResolver: CoalescingComponentFactoryResolver, localResolver: ComponentFactoryResolver) {
-    globalResolver.registerResolver(localResolver);
+  constructor(coalescingResolver: CoalescingComponentFactoryResolver, localResolver: ComponentFactoryResolver) {
+    coalescingResolver.registerModuleResolver(localResolver);
   }
 }

@@ -1,55 +1,43 @@
-import {
-  Injectable,
-  ComponentFactoryResolver,
-  Type,
-  ComponentFactory
-} from '@angular/core';
+import {ComponentFactory, ComponentFactoryResolver, Injectable, Type} from '@angular/core';
 
 @Injectable()
 export class CoalescingComponentFactoryResolver extends ComponentFactoryResolver {
-  private rootResolve: (component: Type<any>) => ComponentFactory<any>;
+  private readonly resolvers: ((component: Type<any>) => ComponentFactory<any>)[] = [];
+  private isResolving = false;
 
-  private inCall = false;
-
-  private readonly resolvers = new Map<ComponentFactoryResolver, (component: Type<any>) => ComponentFactory<any>>();
-
-  constructor(private readonly rootResolver: ComponentFactoryResolver) {
-    super();
+  public registerRootResolver(rootResolver: ComponentFactoryResolver) {
+    this.registerModuleResolver(rootResolver);
+    rootResolver.resolveComponentFactory = this.resolveComponentFactory;
   }
 
-  init() {
-    this.rootResolve = this.rootResolver.resolveComponentFactory;
-    this.rootResolver.resolveComponentFactory = this.resolveComponentFactory;
-  }
-
-  public registerResolver(resolver: ComponentFactoryResolver) {
-    this.resolvers.set(resolver, resolver.resolveComponentFactory);
+  public registerModuleResolver(resolver: ComponentFactoryResolver) {
+    this.resolvers.push(resolver.resolveComponentFactory.bind(resolver));
   }
 
   public resolveComponentFactory = <T>(component: Type<T>): ComponentFactory<T> => {
     // Prevents cyclic calls.
-    if (this.inCall) {
+    if (this.isResolving) {
       return null;
     }
 
-    this.inCall = true;
+    this.isResolving = true;
     try {
       return this.resolveInternal(component);
     } finally {
-      this.inCall = false;
+      this.isResolving = false;
     }
   };
 
   private resolveInternal<T>(component: Type<T>): ComponentFactory<T> {
-    for (const [resolver, fn] of Array.from(this.resolvers.entries())) {
+    for (const resolver of this.resolvers) {
       try {
-        const factory = fn.call(resolver, component);
+        const factory = resolver(component);
         if (factory) {
           return factory;
         }
       } catch {}
     }
 
-    return this.rootResolve.call(this.rootResolver, component);
+    return null;
   };
 }
